@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     tools:context=".Home">
 
     <ScrollView
@@ -31,6 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hello  Andile!!"
+                    android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
                     android:text="What are you looking for ?"
+                    android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +56,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
+
                 android:background="@drawable/border_background"
                 android:orientation="horizontal">
 
@@ -62,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
+                    android:background="@color/searchBar"
                     android:drawableStart="@drawable/search"
                     android:drawablePadding="8dp"
                     android:ems="10"
@@ -70,20 +75,13 @@
                     android:padding="8dp"
                     android:textSize="15sp" />
 
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1" />
-
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="8dp"
-                    app:srcCompat="@drawable/tune_FILL0_wght400_GRAD0_opsz48" />
+                    android:background="@color/searchBar"
+                    app:srcCompat="@drawable/tune_search" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,7 +104,7 @@
                         android:layout_weight="0.25">
 
                         <ImageView
-                            android:id="@+id/imageView6"
+                            android:id="@+id/fruitImg"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -115,14 +113,15 @@
                             app:srcCompat="@drawable/fruit" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/fruitText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/textColor"
                             android:text="Fruits"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                            app:layout_constraintStart_toStartOf="@+id/imageView6"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                            app:layout_constraintEnd_toEndOf="@+id/fruitImg"
+                            app:layout_constraintStart_toStartOf="@+id/fruitImg"
+                            app:layout_constraintTop_toBottomOf="@+id/fruitImg" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,7 +131,7 @@
                         android:layout_weight="0.25">
 
                         <ImageView
-                            android:id="@+id/imageView6"
+                            android:id="@+id/meatImg"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -141,14 +140,15 @@
                             app:srcCompat="@drawable/meat" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/meatText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Meat"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                            app:layout_constraintStart_toStartOf="@+id/imageView6"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                            app:layout_constraintEnd_toEndOf="@+id/meatImg"
+                            app:layout_constraintStart_toStartOf="@+id/meatImg"
+                            app:layout_constraintTop_toBottomOf="@+id/meatImg" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -158,7 +158,7 @@
                         android:layout_weight="0.25">
 
                         <ImageView
-                            android:id="@+id/imageView6"
+                            android:id="@+id/cerealsImg"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -167,14 +167,15 @@
                             app:srcCompat="@drawable/cereals" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/cerealsText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Cereals"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                            app:layout_constraintStart_toStartOf="@+id/imageView6"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                            app:layout_constraintEnd_toEndOf="@+id/cerealsImg"
+                            app:layout_constraintStart_toStartOf="@+id/cerealsImg"
+                            app:layout_constraintTop_toBottomOf="@+id/cerealsImg" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -184,7 +185,7 @@
                         android:layout_weight="0.25">
 
                         <ImageView
-                            android:id="@+id/imageView6"
+                            android:id="@+id/frozenImg"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -193,14 +194,15 @@
                             app:srcCompat="@drawable/frozen" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/frozenText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Frozens"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-                            app:layout_constraintStart_toStartOf="@+id/imageView6"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                            app:layout_constraintEnd_toEndOf="@+id/frozenImg"
+                            app:layout_constraintStart_toStartOf="@+id/frozenImg"
+                            app:layout_constraintTop_toBottomOf="@+id/frozenImg" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -223,6 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Bakery"
+                            android:textColor="@color/textColor"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/imageView6"
                             app:layout_constraintStart_toStartOf="@+id/imageView6"
@@ -251,15 +254,78 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"
+            android:layout_gravity="bottom"
             android:layout_height="60dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
                     android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/homeIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/home_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/heartIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/heart_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/cartIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/cart_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/profileIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/profile_icon" />
 
                 </LinearLayout>
                 
