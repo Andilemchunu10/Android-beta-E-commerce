@@ -104,7 +104,7 @@
                         android:layout_weight="0.25">
 
                         <ImageView
-                            android:id="@+id/fruitImg"
+                            android:id="@+id/productImg"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -113,15 +113,15 @@
                             app:srcCompat="@drawable/fruit" />
 
                         <TextView
-                            android:id="@+id/fruitText"
+                            android:id="@+id/productName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/textColor"
                             android:text="Fruits"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/fruitImg"
-                            app:layout_constraintStart_toStartOf="@+id/fruitImg"
-                            app:layout_constraintTop_toBottomOf="@+id/fruitImg" />
+                            app:layout_constraintEnd_toEndOf="@+id/productImg"
+                            app:layout_constraintStart_toStartOf="@+id/productImg"
+                            app:layout_constraintTop_toBottomOf="@+id/productImg" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
