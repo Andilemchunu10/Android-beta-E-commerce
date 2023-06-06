@@ -26,18 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query ="CREATE TABLE "+TABLE_NAME+
-                        " ("+COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                        COLUMN_PRODUCTIMG +" TEXT,"+
-                        COLUMN_PRODUCTNAME+" TEXT,"+
-                        COLUMN_PRODUCTPRICE+" TEXT,"+
-                        COLUMN_PRODUCTCATEGORY+" TEXT);";
-        String ROW1 = "INSERT INTO " + TABLE_NAME + " ("
-                + COLUMN_PRODUCTIMG + ", " + COLUMN_PRODUCTNAME + ", "
-                + COLUMN_PRODUCTPRICE + ", " + COLUMN_PRODUCTCATEGORY + ", "
-                + KEY_EXPIRYDATE + ") Values ('Cash', '', '', '0', '')";
-        db.execSQL(ROW1);
-        db.execSQL(query);
 
     }
 

@@ -5,75 +5,45 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-   >
-
+    app:cardCornerRadius="15dp">
     <LinearLayout
-        android:layout_width="169dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/item_background"
         android:padding="5dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="136dp"
-            android:layout_height="166dp"
-            android:layout_margin="8dp"
-            android:layout_weight="0.25">
+        <ImageView
+            android:id="@+id/productImg"
+            android:layout_width="162dp"
+            android:layout_height="112dp"
+            app:srcCompat="@drawable/kellogs" />
 
-            <ImageView
-                android:id="@+id/productImg"
-                android:layout_width="86dp"
-                android:layout_height="86dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/kellogs" />
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Kelloggs" />
 
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-45dp"
-                android:text="Kellogs"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/productImg"
-                app:layout_constraintStart_toStartOf="@+id/productImg"
-                app:layout_constraintTop_toBottomOf="@+id/productImg" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/productPrice"
-                android:layout_width="wrap_content"
+                android:layout_width="145dp"
+                android:textSize="12sp"
                 android:layout_height="wrap_content"
-                android:text="R 55.99"
-                app:layout_constraintEnd_toEndOf="@+id/productName"
-                app:layout_constraintStart_toStartOf="@+id/productName"
-                app:layout_constraintTop_toBottomOf="@+id/productName" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="per kg"
-                app:layout_constraintEnd_toEndOf="@+id/productPrice"
-                app:layout_constraintStart_toStartOf="@+id/productPrice"
-                app:layout_constraintTop_toBottomOf="@+id/productPrice" />
+                android:text="R59.99" />
 
             <ImageView
                 android:id="@+id/addIcon"
-                android:layout_width="28.44dp"
-                android:layout_height="28.44dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="46dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/add_icon_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/productImg"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 app:srcCompat="@drawable/add_icon" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
