@@ -2,7 +2,12 @@
 <resources>
     <color name="textColor">#FF000000</color>
     <color name="buttonColor">#FFFFFFFF</color>
-    <color name="backgroundColor">#C8C8C8</color>
     <color name="searchBar">#E2E3E5</color>
     <color name="iconColor">#585858</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="namingColor">#212220</color>
+    <color name="colour">#868889</color>
+    <color name="text">#868889</color>
 </resources>
