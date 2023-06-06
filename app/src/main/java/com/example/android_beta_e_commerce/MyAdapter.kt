@@ -15,6 +15,7 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>) :RecyclerView.A
         var img = v.findViewById<ImageView>(R.id.productImg)
         var name = v.findViewById<TextView>(R.id.productName)
         var price = v.findViewById<TextView>(R.id.productPrice)
+        var add = v.findViewById<ImageView>(R.id.addIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +33,8 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>) :RecyclerView.A
 
         holder.name.text =list[position].title
         holder.price.text =list[position].price.toString()
+        // Set the addIcon image
+        holder.add.setImageResource(R.drawable.add_icon)
     }
 
 }

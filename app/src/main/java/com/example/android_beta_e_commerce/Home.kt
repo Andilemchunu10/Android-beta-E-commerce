@@ -3,6 +3,7 @@ package com.example.android_beta_e_commerce
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -25,7 +26,7 @@ class Home : AppCompatActivity(){
         setContentView(R.layout.activity_home)
 
         rvHome = findViewById(R.id.view1)
-        rvHome.layoutManager = LinearLayoutManager(this)
+        rvHome.layoutManager = GridLayoutManager(this, 2)
         getAllData()
     }
 

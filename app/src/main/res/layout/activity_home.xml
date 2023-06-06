@@ -31,7 +31,7 @@
                     android:id="@+id/textUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello  Andile!!"
+                    android:text=""
                     android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -240,7 +240,8 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
+                android:paddingEnd="16dp"
+                />
 
         </LinearLayout>
     </ScrollView>
