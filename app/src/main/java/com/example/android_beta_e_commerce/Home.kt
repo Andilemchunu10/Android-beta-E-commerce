@@ -3,6 +3,7 @@ package com.example.android_beta_e_commerce
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -27,6 +28,9 @@ class Home : AppCompatActivity(){
         rvHome = findViewById(R.id.view1)
         rvHome.layoutManager = LinearLayoutManager(this)
         getAllData()
+
+        val fruit = findViewById<ImageView>(R.id.productImg)
+
     }
 
     private fun getAllData() {
