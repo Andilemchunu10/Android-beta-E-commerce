@@ -1,6 +1,6 @@
 package com.example.android_beta_e_commerce
 
-data class ProductsItem(
+data class  ProductsItem(
     val category: String,
     val description: String,
     val id: Int,
