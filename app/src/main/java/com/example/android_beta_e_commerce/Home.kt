@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -23,9 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Home : AppCompatActivity(){
     lateinit var rvHome : RecyclerView
     lateinit var myAdapter: MyAdapter
-    var BASE_URL = "https://fakestoreapi.com"
+    var BASE_URL = "http://10.100.0.97:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
+    private var l= ArrayList<Image>()
     private lateinit var cartCount:TextView
     private var cartQuantity:Int = 0;
 
@@ -41,7 +41,8 @@ class Home : AppCompatActivity(){
         rvHome.layoutManager = GridLayoutManager(this, 2)
         getAllData()
 
-        myAdapter = MyAdapter(this, list)
+        myAdapter = MyAdapter(this,list)
+
         rvHome.adapter = myAdapter
 
         fun onChanged(productItem: List<ProductsItem>) {
@@ -94,7 +95,7 @@ class Home : AppCompatActivity(){
         if (query != null) {
             val filteredList = ArrayList<ProductsItem>()
             for (item in list) {
-                if (item.title.contains(query, ignoreCase = true)) {
+                if (item.name.contains(query, ignoreCase = true)) {
                     filteredList.add(item)
                 }
             }
@@ -117,24 +118,32 @@ class Home : AppCompatActivity(){
         val apiService = retrofit.create(ApiInterface::class.java)
         val retroData = apiService.getData()
 
-        retroData.enqueue(object : Callback<List<ProductsItem>> {
-            override fun onResponse(call: Call<List<ProductsItem>>, response: Response<List<ProductsItem>>) {
+        retroData.enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(
+                call: Call<ApiResponse>,
+                response: Response<ApiResponse>
+            ) {
                 if (response.isSuccessful) {
-                    val data = response.body()
-                    if (data != null) {
+                    val apiResponse = response.body()
+                    if (apiResponse != null) {
+                        val data = apiResponse.data
                         list.addAll(data)
+                        Log.d("data", data.toString())
                         myAdapter.notifyDataSetChanged()
                     }
                 } else {
-                    Toast.makeText(this@Home, "Failed to fetch data", Toast.LENGTH_SHORT).show()
+                    Log.e("Home", "Failed to fetch data: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<ProductsItem>>, t: Throwable) {
-                Toast.makeText(this@Home, "Failed to fetch data: ${t.message}", Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("Home", "Failed to fetch data: ${t.message}")
             }
         })
     }
+
+
+
 
 
 }

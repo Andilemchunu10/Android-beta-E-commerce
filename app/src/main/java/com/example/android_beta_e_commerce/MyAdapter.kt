@@ -20,6 +20,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
 
     fun setFilteredList(list: List<ProductsItem>){
         this.list = list
+
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,15 +29,18 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
 
     override fun getItemCount(): Int {
+
         return list.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val product = list[position] // Get the ProductsItem at the current position
 
-        Glide.with(con).load(list[position].image ).into(holder.img)
+        Glide.with(con).load(product.image.imageURL).into(holder.img)
 
-        holder.name.text =list[position].title
+        holder.name.text =list[position].name
         holder.price.text =list[position].price.toString()
+
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
     }
