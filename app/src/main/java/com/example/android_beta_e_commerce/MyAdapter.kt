@@ -9,13 +9,36 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MyAdapter(private val con: Context, var list: List<ProductsItem>) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
-    inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
+class MyAdapter(var con : Context, var list: List<ProductsItem>, ) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
+
+
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClickListener(position: Int)
+    }
+
+    fun setOnItemClicklistener(listener: onItemClickListener){
+        mListener =listener
+    }
+
+
+    inner class ViewHolder(listener: onItemClickListener, v: View ):RecyclerView.ViewHolder(v){
         var img = v.findViewById<ImageView>(R.id.productImg)
         var name = v.findViewById<TextView>(R.id.productName)
         var price = v.findViewById<TextView>(R.id.productPrice)
+
         var add = v.findViewById<ImageView>(R.id.addIcon)
+
+
+        init {
+            v.setOnClickListener {
+                listener.onItemClickListener(adapterPosition)
+            }
+
+        }
+
     }
 
     fun setFilteredList(list: List<ProductsItem>){
@@ -23,8 +46,8 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       var view = LayoutInflater.from(con).inflate(R.layout.item,parent,false)
-        return ViewHolder(view)
+       val view = LayoutInflater.from(con).inflate(R.layout.item,parent,false)
+        return ViewHolder(mListener,view)
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +55,6 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         Glide.with(con).load(list[position].image ).into(holder.img)
 
         holder.name.text =list[position].title
@@ -40,5 +62,6 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
     }
+
 
 }
