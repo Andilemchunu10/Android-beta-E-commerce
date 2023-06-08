@@ -31,7 +31,7 @@
                     android:id="@+id/textUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello  Andile!!"
+                    android:text=""
                     android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -56,12 +56,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-
                 android:background="@drawable/border_background"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/editTextText2"
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
@@ -73,15 +72,10 @@
                     android:hint="Search"
                     android:inputType="text"
                     android:padding="8dp"
-                    android:textSize="15sp" />
+                    android:textSize="15sp" >
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:background="@color/searchBar"
-                    app:srcCompat="@drawable/tune_search" />
+                </androidx.appcompat.widget.SearchView>
+
             </LinearLayout>
 
             <LinearLayout
@@ -240,7 +234,8 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
+                android:paddingEnd="16dp"
+                />
 
         </LinearLayout>
     </ScrollView>
@@ -253,85 +248,12 @@
         app:layout_constraintStart_toStartOf="parent"
         android:theme="@style/Theme.MaterialComponents.Light">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
             android:layout_gravity="bottom"
-            android:layout_height="60dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/homeIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/home_icon" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/heartIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/heart_icon" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/cartIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/cart_icon" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/profileIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/profile_icon" />
-
-                </LinearLayout>
-                
-            </LinearLayout>
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
+            app:menu="@menu/bottom_menu" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

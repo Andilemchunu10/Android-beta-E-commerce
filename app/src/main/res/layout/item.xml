@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="15dp"
-    android:id="@+id/card12"
-   >
+    android:id="@+id/card12" >
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,19 +34,30 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/productPrice"
-                android:layout_width="145dp"
-                android:textSize="12sp"
+                android:id="@+id/textView"
+                android:layout_width="10dp"
                 android:layout_height="wrap_content"
-                android:text="R59.99" />
+                android:textSize="13sp"
+                android:text="R" />
 
-            <ImageView
-                android:id="@+id/addIcon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                app:srcCompat="@drawable/add_icon" />
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="match_parent"
+
+                android:textSize="13sp"
+                android:layout_height="wrap_content"
+                android:text="59.99" />
+
+
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/addIcon"
+            android:layout_width="22dp"
+            android:layout_height="16dp"
+            android:clickable="true"
+            android:layout_gravity="end|bottom"
+            app:srcCompat="@drawable/add_icon" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

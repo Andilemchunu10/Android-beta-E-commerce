@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
+
 class MyAdapter(var con : Context, var list: List<ProductsItem>, ) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
+
 
     private lateinit var mListener: onItemClickListener
 
@@ -27,14 +29,22 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>, ) :RecyclerView
         var name = v.findViewById<TextView>(R.id.productName)
         var price = v.findViewById<TextView>(R.id.productPrice)
 
+        var add = v.findViewById<ImageView>(R.id.addIcon)
+
+
         init {
             v.setOnClickListener {
                 listener.onItemClickListener(adapterPosition)
             }
 
         }
+
     }
 
+    fun setFilteredList(list: List<ProductsItem>){
+        this.list = list
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        val view = LayoutInflater.from(con).inflate(R.layout.item,parent,false)
         return ViewHolder(mListener,view)
@@ -49,6 +59,8 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>, ) :RecyclerView
 
         holder.name.text =list[position].title
         holder.price.text =list[position].price.toString()
+        // Set the addIcon image
+        holder.add.setImageResource(R.drawable.add_icon)
     }
 
 
