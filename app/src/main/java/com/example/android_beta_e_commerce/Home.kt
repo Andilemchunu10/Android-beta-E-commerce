@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -25,6 +24,7 @@ class Home : AppCompatActivity() {
     lateinit var searchView: SearchView
     private var list = ArrayList<ProductsItem>()
     private lateinit var cartCount: TextView
+    private lateinit var adding: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +32,7 @@ class Home : AppCompatActivity() {
 
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
+
 
 
         rvHome.layoutManager = GridLayoutManager(this, 2)
