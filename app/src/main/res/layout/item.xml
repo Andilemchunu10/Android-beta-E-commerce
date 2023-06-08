@@ -53,6 +53,7 @@
             android:id="@+id/addIcon"
             android:layout_width="22dp"
             android:layout_height="16dp"
+            android:clickable="true"
             android:layout_gravity="end|bottom"
             app:srcCompat="@drawable/add_icon" />
     </LinearLayout>

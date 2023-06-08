@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MyAdapter(var con : Context, var list: List<ProductsItem>) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
+class MyAdapter(private val con: Context, var list: List<ProductsItem>) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
     inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
         var img = v.findViewById<ImageView>(R.id.productImg)
@@ -18,6 +18,10 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>) :RecyclerView.A
         var add = v.findViewById<ImageView>(R.id.addIcon)
     }
 
+    fun setFilteredList(list: List<ProductsItem>){
+        this.list = list
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        var view = LayoutInflater.from(con).inflate(R.layout.item,parent,false)
         return ViewHolder(view)
