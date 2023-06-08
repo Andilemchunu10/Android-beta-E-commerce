@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 
 class ViewOneActivity2 : AppCompatActivity() {
@@ -22,6 +23,34 @@ class ViewOneActivity2 : AppCompatActivity() {
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
         val homeImage: ImageView = findViewById(R.id.homeIcon)
+
+        val image: ImageView= findViewById(R.id.imageView3)
+        val price: TextView= findViewById(R.id.textView2)
+        val category: TextView=findViewById(R.id.textView)
+        val description: TextView=findViewById(R.id.textView5)
+        val title: TextView = findViewById(R.id.title)
+        //val productDescription = intent.getStringExtra("productDescription")
+
+        val bundle : Bundle?= intent.extras
+        val productDescription = bundle!!.getString("productDescription")
+        val productCategory = bundle.getString("productCategory")
+        val productTitle = bundle.getString("productTitle")
+        val productPrice = bundle.getInt("productPrice")
+        val productImage = bundle.getString("productImage") // Retrieve the image URL
+        Glide.with(this).load(productImage).into(image)
+
+
+        description.text = productDescription
+        category.text= productCategory
+        price.text= productPrice.toString()
+        title.text= productTitle
+        //image.= productPrice
+
+
+
+
+
+
 
         backbutton.setOnClickListener {
             val intent = Intent (this, Home::class.java)
@@ -74,6 +103,8 @@ class ViewOneActivity2 : AppCompatActivity() {
         addToCartbutton.setOnClickListener {
             Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
         }
+
+
 
     }
 }

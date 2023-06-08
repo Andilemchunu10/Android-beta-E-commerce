@@ -105,15 +105,26 @@ class Home : AppCompatActivity() {
                         myAdapter.setOnItemClicklistener(object : MyAdapter.onItemClickListener {
                             override fun onItemClickListener(position: Int) {
 
-                                val intent = Intent(this@Home, ViewOneActivity2::class.java)
-                                //intent.putExtra(rvHome.adapter.)
-                                startActivity(intent)
-                                //Toast.makeText(this@Home,"You Clicked on. $position",Toast.LENGTH_SHORT).show()
+                                //val intent = Intent(this@Home, ViewOneActivity2::class.java)
+                                //intent.putExtra("information", data)
+
+                                Toast.makeText(this@Home,"You Clicked on. $position",Toast.LENGTH_SHORT).show()
 
                             }
-                        })
+
+                            override fun onBindViewHolder(
+                                holder: MyAdapter.ViewHolder,
+                                position: Int
+                            ) {
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+                            )
+                        }
                     }
-                } else {
+            else {
                     Toast.makeText(this@Home, "Failed to fetch data", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -128,4 +139,14 @@ class Home : AppCompatActivity() {
         })
 
     }
+}
+
+private fun Intent.putExtra(s: String, data: List<ProductsItem>) {
+    val category: String
+    val description: String
+    val id: Int
+    val image: String
+    val price: Double
+    val title: String
+
 }
