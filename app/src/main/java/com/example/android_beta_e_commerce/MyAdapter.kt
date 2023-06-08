@@ -43,6 +43,7 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>, ) :RecyclerView
 
     fun setFilteredList(list: List<ProductsItem>){
         this.list = list
+
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,14 +52,22 @@ class MyAdapter(var con : Context, var list: List<ProductsItem>, ) :RecyclerView
     }
 
     override fun getItemCount(): Int {
+
         return list.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+<<<<<<< HEAD
         Glide.with(con).load(list[position].image ).into(holder.img)
+=======
+        val product = list[position] // Get the ProductsItem at the current position
 
-        holder.name.text =list[position].title
+        Glide.with(con).load(product.image.imageURL).into(holder.img)
+>>>>>>> 5ce3390 (added the viewall with the backend api)
+
+        holder.name.text =list[position].name
         holder.price.text =list[position].price.toString()
+
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
     }
