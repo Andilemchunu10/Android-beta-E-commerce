@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Home : AppCompatActivity(){
     lateinit var rvHome : RecyclerView
     lateinit var myAdapter: MyAdapter
-    var BASE_URL = "http://10.100.0.97:8081/api/products/"
+    var BASE_URL = "http://192.168.10.121:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
     private var l= ArrayList<Image>()
@@ -36,8 +36,6 @@ class Home : AppCompatActivity(){
 
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
-
-
         rvHome.layoutManager = GridLayoutManager(this, 2)
         getAllData()
 
@@ -63,6 +61,8 @@ class Home : AppCompatActivity(){
             }
 
         })
+        getAllData()
+        updateCartCount()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,21 +74,13 @@ class Home : AppCompatActivity(){
         if (cartActionView != null) {
             cartCount = cartActionView.findViewById(R.id.cartCount)
         }
-        cartCount.setText("2")
-
-
-
-
-
-
-
+       //cartCount.setText("2")
         updateCartCount() // Initialize cart count display
-
         return true
     }
 
     private fun updateCartCount() {
-        TODO("Not yet implemented")
+       cartCount.text = list.size.toString()
     }
 
     private fun filterList(query: String?) {
@@ -107,6 +99,9 @@ class Home : AppCompatActivity(){
         }
 
     }
+
+    
+    
 
 
     private fun getAllData() {
@@ -161,5 +156,12 @@ class Home : AppCompatActivity(){
             }
         })
     }
+
+    private fun addToCart(item:ProductsItem){
+        list.add(item)
+        Toast.makeText(this,"Added items",Toast.LENGTH_SHORT).show()
+        updateCartCount()
+    }
+
 
 }

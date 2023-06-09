@@ -99,5 +99,6 @@ class ViewOneActivity2 : AppCompatActivity() {
         }
 
 
+
     }
 }
