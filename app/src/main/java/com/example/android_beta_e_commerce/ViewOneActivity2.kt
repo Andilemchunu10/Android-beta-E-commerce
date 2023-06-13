@@ -14,12 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class ViewOneActivity2 : AppCompatActivity() {
 
-    private lateinit var productNameTextView: TextView
-    private lateinit var productPriceTextView: TextView
-    private lateinit var productDescriptionView: TextView
-    private lateinit var productImageView: ImageView
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_one2)
@@ -37,6 +31,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         val category: TextView = findViewById(R.id.textView)
         val description: TextView = findViewById(R.id.textView5)
         val title: TextView = findViewById(R.id.title)
+        val cartIcon : ImageButton = findViewById(R.id.imageButton)
         //val productDescription = intent.getStringExtra("productDescription")
 
         val bundle: Bundle? = intent.extras
@@ -66,7 +61,7 @@ class ViewOneActivity2 : AppCompatActivity() {
             startActivity(intent)
         }
 
-        var count = 0
+        var count = 1
 
 
 
@@ -81,7 +76,7 @@ class ViewOneActivity2 : AppCompatActivity() {
 
 
         decrementBtn.setOnClickListener {
-            var count = 0
+
             if (count > 0) {
                 count--
                 itemNum.text = count.toString()
@@ -104,8 +99,17 @@ class ViewOneActivity2 : AppCompatActivity() {
             }
         }
 
-        addToCartbutton.setOnClickListener {
+        cartIcon.setOnClickListener {
+//            val intent = Intent(this, AddToCart::class.java)
+//            startActivity(intent)
             Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
+        }
+
+        addToCartbutton.setOnClickListener {
+
+            Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
+//            val intent = Intent(this, AddToCart::class.java)
+//            startActivity(intent)
         }
 
     }
