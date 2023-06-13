@@ -35,13 +35,14 @@ class ViewOneActivity2 : AppCompatActivity() {
         val productCategory = bundle.getString("productCategory")
         val productTitle = bundle.getString("productTitle")
 
-        val productName = bundle.getInt("productName")
+        val productPrice = bundle.getDouble("productPrice")
         val productImage = bundle.getString("productImage") // Retrieve the image URL
+        val priceFormatted = String.format("%.2f", productPrice)
         Glide.with(this).load(productImage).into(image)
 
         description.text = productDescription
         category.text = productCategory
-        price.text = productName.toString()
+        price.text = priceFormatted
         title.text = productTitle
         //image.= productPrice
 
