@@ -1,17 +1,18 @@
 package com.example.android_beta_e_commerce
 
+
+
+
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.content.Intent
-import android.widget.ImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,10 +22,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Home : AppCompatActivity() {
     lateinit var rvHome: RecyclerView
     lateinit var myAdapter: MyAdapter
-    var BASE_URL = "https://fakestoreapi.com"
-    lateinit var searchView: SearchView
-    private var list = ArrayList<ProductsItem>()
-    private lateinit var cartCount: TextView
+    var BASE_URL = "http://10.100.0.97:8081/api/products/"
+    lateinit var searchView : SearchView
+    private  var list = ArrayList<ProductsItem>()
+    private var l= ArrayList<Image>()
+    private lateinit var cartCount:TextView
+    private var cartQuantity:Int = 0;
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +42,9 @@ class Home : AppCompatActivity() {
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
         getAllData()
+        myAdapter = MyAdapter(this,list)
 
-        myAdapter = MyAdapter(this, list)
+
         rvHome.adapter = myAdapter
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -64,14 +70,21 @@ class Home : AppCompatActivity() {
         }
         cartCount.text = "2"
 
-        return super.onCreateOptionsMenu(menu)
+        updateCartCount() // Initialize cart count display
+
+        return true
+    }
+
+    private fun updateCartCount() {
+        TODO("Not yet implemented")
+
     }
 
     private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<ProductsItem>()
             for (item in list) {
-                if (item.title.contains(query, ignoreCase = true)) {
+                if (item.name.contains(query, ignoreCase = true)) {
                     filteredList.add(item)
                 }
             }
@@ -92,21 +105,30 @@ class Home : AppCompatActivity() {
         val apiService = retrofit.create(ApiInterface::class.java)
         val retroData = apiService.getData()
 
-        retroData.enqueue(object : Callback<List<ProductsItem>> {
+        retroData.enqueue(object : Callback<ApiResponse> {
             override fun onResponse(
-                call: Call<List<ProductsItem>>,
-                response: Response<List<ProductsItem>>
+                call: Call<ApiResponse>,
+                response: Response<ApiResponse>
+
             ) {
                 if (response.isSuccessful) {
-                    val data = response.body()
-                    if (data != null) {
+                    val apiResponse = response.body()
+                    if (apiResponse != null) {
+                        val data = apiResponse.data
                         list.addAll(data)
+                        Log.d("data", data.toString())
                         myAdapter.notifyDataSetChanged()
                         myAdapter.setOnItemClicklistener(object : MyAdapter.onItemClickListener {
                             override fun onItemClickListener(position: Int) {
-
                                 //val intent = Intent(this@Home, ViewOneActivity2::class.java)
                                 //intent.putExtra("information", data)
+
+<<<<<<< HEAD
+                                //val intent = Intent(this@Home, ViewOneActivity2::class.java)
+                                //intent.putExtra("information", data)
+=======
+                                Toast.makeText(this@Home,"You Clicked on. $position",Toast.LENGTH_SHORT).show()
+>>>>>>> a148e7b785ed35a19780ccfd9ed4b6937950f589
 
                                 Toast.makeText(this@Home,"You Clicked on. $position",Toast.LENGTH_SHORT).show()
 
@@ -119,6 +141,7 @@ class Home : AppCompatActivity() {
                                 TODO("Not yet implemented")
                             }
 
+<<<<<<< HEAD
 
                         }
                             )
@@ -126,21 +149,34 @@ class Home : AppCompatActivity() {
                     }
             else {
                     Toast.makeText(this@Home, "Failed to fetch data", Toast.LENGTH_SHORT).show()
+=======
+                            override fun onBindViewHolder(
+                                holder: MyAdapter.ViewHolder,
+                                position: Int
+                            ) {
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+                        )
+                    }
+                } else {
+                    Log.e("Home", "Failed to fetch data: ${response.message()}")
+>>>>>>> a148e7b785ed35a19780ccfd9ed4b6937950f589
                 }
             }
 
-            override fun onFailure(call: Call<List<ProductsItem>>, t: Throwable) {
-                Toast.makeText(
-                    this@Home,
-                    "Failed to fetch data: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("Home", "Failed to fetch data: ${t.message}")
             }
         })
-
     }
+
 }
 
+<<<<<<< HEAD
 private fun Intent.putExtra(s: String, data: List<ProductsItem>) {
     val category: String
     val description: String
@@ -150,3 +186,5 @@ private fun Intent.putExtra(s: String, data: List<ProductsItem>) {
     val title: String
 
 }
+=======
+>>>>>>> a148e7b785ed35a19780ccfd9ed4b6937950f589
