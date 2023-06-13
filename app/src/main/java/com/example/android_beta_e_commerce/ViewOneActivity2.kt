@@ -29,7 +29,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         val incrementBtn: ImageButton = findViewById(R.id.imageButton3)
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
-        val homeImage: ImageView = findViewById(R.id.homeIcon)
+        //val homeImage: ImageView = findViewById(R.id.homeIcon)
 
 
         val image: ImageView = findViewById(R.id.imageView3)
@@ -61,10 +61,10 @@ class ViewOneActivity2 : AppCompatActivity() {
             startActivity(intent)
         }
 
-        homeImage.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-        }
+//        homeImage.setOnClickListener {
+//            val intent = Intent(this, Home::class.java)
+//            startActivity(intent)
+//        }
 
         var count = 0
 
