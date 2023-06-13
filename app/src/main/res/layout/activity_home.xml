@@ -254,6 +254,9 @@
             android:layout_height="wrap_content"
             android:background="@color/backgroundColor"
             android:layout_gravity="bottom"
-            app:menu="@menu/bottom_menu" />
+            app:menu="@menu/bottom_menu" >
+
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

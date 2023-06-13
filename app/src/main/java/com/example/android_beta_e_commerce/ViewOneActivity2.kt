@@ -6,11 +6,19 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+
 import android.widget.Toast
 import com.bumptech.glide.Glide
+
 import com.google.android.material.snackbar.Snackbar
 
 class ViewOneActivity2 : AppCompatActivity() {
+
+    private lateinit var productNameTextView: TextView
+    private lateinit var productPriceTextView: TextView
+    private lateinit var productDescriptionView: TextView
+    private lateinit var productImageView: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +30,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
         val homeImage: ImageView = findViewById(R.id.homeIcon)
+
 
         val image: ImageView = findViewById(R.id.imageView3)
         val price: TextView = findViewById(R.id.textView2)
@@ -57,13 +66,18 @@ class ViewOneActivity2 : AppCompatActivity() {
             startActivity(intent)
         }
 
+        var count = 0
+
+
+
         incrementBtn.setOnClickListener {
-            var count = 0
+            var pricetxt = 0.0
             count++
             itemNum.text = count.toString()
-
-
+            pricetxt *= count
+            pricetxt.toString()
         }
+
 
 
         decrementBtn.setOnClickListener {
@@ -72,33 +86,27 @@ class ViewOneActivity2 : AppCompatActivity() {
                 count--
                 itemNum.text = count.toString()
 
+
             }
         }
+
         var isFavorite = false
         favourites.setOnClickListener {
-
-            // Perform your logic to add/remove from favorites here
-
             isFavorite = !isFavorite
             if (isFavorite) {
 
-//
                 favourites.setImageResource(R.drawable.fav)
                 Snackbar.make(it, "Added to favorites", Snackbar.LENGTH_SHORT).show()
-
             } else {
 
                 favourites.setImageResource(R.drawable.hart_icon_white)
                 Snackbar.make(it, "Removed from favorites", Snackbar.LENGTH_SHORT).show()
-//
             }
-
-
         }
+
         addToCartbutton.setOnClickListener {
             Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
         }
-
 
     }
 }

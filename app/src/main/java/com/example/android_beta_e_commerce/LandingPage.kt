@@ -1,8 +1,10 @@
 package com.example.android_beta_e_commerce
 
 import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.content.Intent
+
 import android.widget.Button
 
 class LandingPage : AppCompatActivity() {
