@@ -65,12 +65,12 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             val intent = Intent(holder.itemView.context, ViewOneActivity2::class.java)
             // Pass the data for the clicked item through the Intent
             //intent.putExtra("productId", product.id)
-            intent.putExtra("productName", product.price)
+            //intent.putExtra("productName", product.price)
             val cat  = list[position].category.name
             intent.putExtra("productCategory", cat)
             intent.putExtra("productDescription", product.description)
             intent.putExtra("productTitle", product.name)
-            intent.putExtra("productPrice",product.price).toString()
+            intent.putExtra("productPrice",product.price)
             val productImage  = list[position].image.imageURL // Assuming "image" is the URL obtained from the API
             intent.putExtra("productImage", productImage)
 
