@@ -26,7 +26,7 @@
             android:background="@drawable/rounded_corner"
             android:fontFamily="serif"
             android:gravity="bottom"
-            android:text="Groceries at your fingertips"
+            android:text="Groceries at your \n       fingertips"
             android:textColor="#3C2A21"
             android:textSize="45sp" />
 
@@ -45,7 +45,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_corner"
-            android:text="Click to order"
+            android:text="Get Started"
             android:textColor="#3C2A21" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
