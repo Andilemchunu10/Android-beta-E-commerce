@@ -80,7 +80,7 @@ class Home : AppCompatActivity(){
     }
 
     private fun updateCartCount() {
-       cartCount.text = list.size.toString()
+     //  cartCount.text = list.size.toString()
     }
 
     private fun filterList(query: String?) {
