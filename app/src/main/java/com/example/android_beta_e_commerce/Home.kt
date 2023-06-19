@@ -49,6 +49,9 @@ class Home : AppCompatActivity() {
         findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
             onCategoryImageClick("Frozens")
         }
+        findViewById<ImageView>(R.id.imageView6).setOnClickListener {
+            onCategoryImageClick("Bakery")
+        }
 
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
