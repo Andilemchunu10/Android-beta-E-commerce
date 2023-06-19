@@ -1,13 +1,12 @@
 package com.example.android_beta_e_commerce
 
 
-
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -38,6 +37,18 @@ class Home : AppCompatActivity() {
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
 
+        findViewById<ImageView>(R.id.productImg).setOnClickListener {
+            onCategoryImageClick("Fruits")
+        }
+        findViewById<ImageView>(R.id.meatImg).setOnClickListener {
+            onCategoryImageClick("Meat")
+        }
+        findViewById<ImageView>(R.id.cerealsImg).setOnClickListener {
+            onCategoryImageClick("Cereals")
+        }
+        findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
+            onCategoryImageClick("Frozens")
+        }
 
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
@@ -57,6 +68,10 @@ class Home : AppCompatActivity() {
                 return true
             }
         })
+    }
+
+    private fun onCategoryImageClick(category: String) {
+        myAdapter.filterByCategory(category)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

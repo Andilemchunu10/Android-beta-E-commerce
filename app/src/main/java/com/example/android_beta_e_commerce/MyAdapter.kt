@@ -19,6 +19,13 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         fun onBindViewHolder(holder: ViewHolder, position: Int)
     }
 
+    private var filteredList: List<ProductsItem> = list
+
+    fun filterByCategory(category: String) {
+        filteredList = list.filter { item -> item.category.name  == category}
+        notifyDataSetChanged()
+    }
+
     fun setOnItemClicklistener(listener: onItemClickListener){
         mListener =listener
     }
@@ -47,12 +54,13 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
 
     override fun getItemCount(): Int {
-
-        return list.count()
+        return filteredList.size
+        //return list.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = list[position] // Get the ProductsItem at the current position
+        //val product = list[position] // Get the ProductsItem at the current position
+        val product = filteredList[position]
 
         Glide.with(con).load(product.image.imageURL).into(holder.img)
 
