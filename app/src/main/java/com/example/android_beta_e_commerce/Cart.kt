@@ -48,6 +48,8 @@ class Cart : AppCompatActivity() {
     }
 
 
+
+
     private fun placeOrder() {
         // Perform the order placement logic here
     }

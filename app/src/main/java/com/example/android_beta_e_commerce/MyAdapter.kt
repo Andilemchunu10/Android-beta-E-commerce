@@ -58,7 +58,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
 
     fun setFilteredList(list: List<ProductsItem>){
-        this.list = list
+        this.filteredList = list
 
         notifyDataSetChanged()
     }
@@ -85,7 +85,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
         holder.add.setOnClickListener {
-            val product = list[position]
+            val product = filteredList[position]
             CartManager.addItem(product)
             Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show()
         }

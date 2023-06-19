@@ -46,7 +46,7 @@ class Home : AppCompatActivity() {
             onCategoryImageClick("Meat")
         }
         findViewById<ImageView>(R.id.cerealsImg).setOnClickListener {
-            onCategoryImageClick("Cereals")
+            onCategoryImageClick("Breakfast")
         }
         findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
             onCategoryImageClick("Frozens")
@@ -85,14 +85,7 @@ class Home : AppCompatActivity() {
         myAdapter.filterByCategory(category)
     }
 
-    
 
-
-
-    private fun updateCartCount() {
-        TODO("Not yet implemented")
-
-    }
 
     private fun filterList(query: String?) {
         if (query != null) {
