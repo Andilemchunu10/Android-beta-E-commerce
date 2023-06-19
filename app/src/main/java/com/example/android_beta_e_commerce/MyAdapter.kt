@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class MyAdapter(private val con: Context, var list: List<ProductsItem>) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
     private lateinit var mListener: onItemClickListener
+    private val cartItems: MutableList<ProductsItem> = mutableListOf()
+
 
     interface onItemClickListener{
         fun onItemClickListener(position: Int)
@@ -32,7 +35,19 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
                 listener.onItemClickListener(adapterPosition)
             }
 
+            add.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val product = list[position]
+                    addToCart(product)
+                }
+            }
+
         }
+    }
+    private fun addToCart(product: ProductsItem) {
+        cartItems.add(product)
+        // Update UI or perform any other actions related to adding the product to the cart
     }
 
     fun setFilteredList(list: List<ProductsItem>){
@@ -61,6 +76,12 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
 
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
+        holder.add.setOnClickListener {
+            val product = list[position]
+            CartManager.addItem(product)
+            Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show()
+        }
+
         holder.itemView.setOnClickListener {         // Create an Intent to start the new activity
             val intent = Intent(holder.itemView.context, ViewOneActivity2::class.java)
             // Pass the data for the clicked item through the Intent

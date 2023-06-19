@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -28,6 +30,7 @@ class Home : AppCompatActivity() {
     private var l= ArrayList<Image>()
     private lateinit var cartCount:TextView
     private var cartQuantity:Int = 0;
+    private lateinit var cartIcon:ImageView
 
 
 
@@ -37,6 +40,7 @@ class Home : AppCompatActivity() {
 
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
+        cartIcon = findViewById(R.id.cartIcon)
 
 
         rvHome.layoutManager = GridLayoutManager(this, 2)
@@ -57,23 +61,25 @@ class Home : AppCompatActivity() {
                 return true
             }
         })
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.bottom_menu, menu)
-
-        val cartMenuItem = menu.findItem(R.id.cartIcon)
-        val cartActionView = cartMenuItem.actionView
-
-        if (cartActionView != null) {
-            cartCount = cartActionView.findViewById(R.id.cartCount)
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
         }
-        cartCount.text = "2"
 
-        updateCartCount() // Initialize cart count display
-
-        return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.cartIcon -> {
+                startActivity(Intent(this, Cart::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 
     private fun updateCartCount() {
         TODO("Not yet implemented")
