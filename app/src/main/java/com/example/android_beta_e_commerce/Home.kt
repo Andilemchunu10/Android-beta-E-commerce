@@ -1,14 +1,11 @@
 package com.example.android_beta_e_commerce
 
 
-
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -42,6 +39,21 @@ class Home : AppCompatActivity() {
         searchView = findViewById(R.id.search)
         cartIcon = findViewById(R.id.cartIcon)
 
+        findViewById<ImageView>(R.id.productImg).setOnClickListener {
+            onCategoryImageClick("Fruits")
+        }
+        findViewById<ImageView>(R.id.meatImg).setOnClickListener {
+            onCategoryImageClick("Meat")
+        }
+        findViewById<ImageView>(R.id.cerealsImg).setOnClickListener {
+            onCategoryImageClick("Cereals")
+        }
+        findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
+            onCategoryImageClick("Frozens")
+        }
+        findViewById<ImageView>(R.id.imageView6).setOnClickListener {
+            onCategoryImageClick("Bakery")
+        }
 
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
@@ -62,22 +74,18 @@ class Home : AppCompatActivity() {
             }
         })
 
+
         cartIcon.setOnClickListener{
             val intent = Intent(this, Cart::class.java)
             startActivity(intent)
         }
-
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.cartIcon -> {
-                startActivity(Intent(this, Cart::class.java))
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    private fun onCategoryImageClick(category: String) {
+        myAdapter.filterByCategory(category)
     }
+
+    
 
 
 

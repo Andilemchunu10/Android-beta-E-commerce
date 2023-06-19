@@ -22,6 +22,13 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         fun onBindViewHolder(holder: ViewHolder, position: Int)
     }
 
+    private var filteredList: List<ProductsItem> = list
+
+    fun filterByCategory(category: String) {
+        filteredList = list.filter { item -> item.category.name  == category}
+        notifyDataSetChanged()
+    }
+
     fun setOnItemClicklistener(listener: onItemClickListener){
         mListener =listener
     }
@@ -62,17 +69,18 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
 
     override fun getItemCount(): Int {
+        return filteredList.size
 
-        return list.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = list[position] // Get the ProductsItem at the current position
+        val product = filteredList[position] // Get the ProductsItem at the current position
+
 
         Glide.with(con).load(product.image.imageURL).into(holder.img)
 
-        holder.name.text =list[position].name
-        holder.price.text =list[position].price.toString()
+        holder.name.text =filteredList[position].name
+        holder.price.text =filteredList[position].price.toString()
 
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
@@ -87,12 +95,12 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             // Pass the data for the clicked item through the Intent
             //intent.putExtra("productId", product.id)
             //intent.putExtra("productName", product.price)
-            val cat  = list[position].category.name
+            val cat  = filteredList[position].category.name
             intent.putExtra("productCategory", cat)
             intent.putExtra("productDescription", product.description)
             intent.putExtra("productTitle", product.name)
             intent.putExtra("productPrice",product.price)
-            val productImage  = list[position].image.imageURL // Assuming "image" is the URL obtained from the API
+            val productImage  = filteredList[position].image.imageURL // Assuming "image" is the URL obtained from the API
             intent.putExtra("productImage", productImage)
 
             // Add more data as needed
