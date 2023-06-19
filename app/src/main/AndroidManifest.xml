@@ -26,13 +26,16 @@
         </activity>
         <activity
             android:name=".Home"
-            android:exported="false"/>
+            android:exported="true"/>
         <activity
             android:name=".ViewOneActivity2"
             android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="false"></activity>
+
+        <activity android:name=".Cart"
+            android:exported="true"/>
     </application>
 
 </manifest>

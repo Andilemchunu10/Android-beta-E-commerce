@@ -27,6 +27,7 @@ class Home : AppCompatActivity() {
     private var l= ArrayList<Image>()
     private lateinit var cartCount:TextView
     private var cartQuantity:Int = 0;
+    private lateinit var cartIcon:ImageView
 
 
 
@@ -36,6 +37,7 @@ class Home : AppCompatActivity() {
 
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
+        cartIcon = findViewById(R.id.cartIcon)
 
         findViewById<ImageView>(R.id.productImg).setOnClickListener {
             onCategoryImageClick("Fruits")
@@ -71,27 +73,21 @@ class Home : AppCompatActivity() {
                 return true
             }
         })
+
+
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun onCategoryImageClick(category: String) {
         myAdapter.filterByCategory(category)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.bottom_menu, menu)
+    
 
-        val cartMenuItem = menu.findItem(R.id.cartIcon)
-        val cartActionView = cartMenuItem.actionView
 
-        if (cartActionView != null) {
-            cartCount = cartActionView.findViewById(R.id.cartCount)
-        }
-        cartCount.text = "2"
-
-        updateCartCount() // Initialize cart count display
-
-        return true
-    }
 
     private fun updateCartCount() {
         TODO("Not yet implemented")
