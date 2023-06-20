@@ -18,6 +18,7 @@ class ViewOneActivity2 : AppCompatActivity() {
     private lateinit var productPriceTextView: TextView
     private lateinit var productDescriptionView: TextView
     private lateinit var productImageView: ImageView
+    private lateinit var cartIcon:ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         val incrementBtn: ImageButton = findViewById(R.id.imageButton3)
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
+        cartIcon = findViewById(R.id.cartIcon)
         //val homeImage: ImageView = findViewById(R.id.homeIcon)
 
 
@@ -106,7 +108,26 @@ class ViewOneActivity2 : AppCompatActivity() {
         }
 
         addToCartbutton.setOnClickListener {
-            Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
+            val product = ProductsItem(
+                name = productTitle ?: "",
+                description = "",
+                category = Category(0, ""),
+                price = productPrice ?: 0.0,
+                image = Image(0, productImage ?: ""),
+                productId = 0
+            )
+            if (CartManager.isProductAdded(product)) {
+                Toast.makeText(this, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
+            } else {
+                CartManager.addItem(product)
+                Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
         }
 
     }

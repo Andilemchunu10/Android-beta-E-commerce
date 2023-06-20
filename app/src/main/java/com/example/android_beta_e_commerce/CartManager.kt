@@ -4,7 +4,9 @@ object CartManager {
     private val cartItems: MutableList<ProductsItem> = mutableListOf()
 
     fun addItem(item: ProductsItem) {
-        cartItems.add(item)
+        if (!cartItems.contains(item)) {
+            cartItems.add(item)
+        }
     }
 
     fun removeItem(item: ProductsItem) {
@@ -13,5 +15,13 @@ object CartManager {
 
     fun getCartItems(): List<ProductsItem> {
         return cartItems
+    }
+
+    fun getCartCount(): Int {
+        return cartItems.size
+    }
+
+    fun isProductAdded(item: ProductsItem): Boolean {
+        return cartItems.contains(item)
     }
 }

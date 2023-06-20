@@ -85,9 +85,15 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
         holder.add.setOnClickListener {
-            val product = list[position]
+            val product = filteredList[position]
             CartManager.addItem(product)
-            Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show()
+            if (CartManager.isProductAdded(product)) {
+            Toast.makeText(con, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
+        }else {
+                cartItems.add(product)
+                Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show() // Update UI or perform any other actions related to adding the product to the cart
+            }
+
         }
 
         holder.itemView.setOnClickListener {         // Create an Intent to start the new activity
