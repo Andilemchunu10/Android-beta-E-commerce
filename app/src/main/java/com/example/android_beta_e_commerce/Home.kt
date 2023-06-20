@@ -28,6 +28,7 @@ class Home : AppCompatActivity() {
     private lateinit var cartCount:TextView
     private var cartQuantity:Int = 0;
     private lateinit var cartIcon:ImageView
+    private lateinit var profileIcon: ImageView
 
 
 
@@ -38,6 +39,7 @@ class Home : AppCompatActivity() {
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
         cartIcon = findViewById(R.id.cartIcon)
+        profileIcon = findViewById(R.id.profileIcon)
 
         findViewById<ImageView>(R.id.productImg).setOnClickListener {
             onCategoryImageClick("Fruits")
@@ -79,6 +81,12 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, Cart::class.java)
             startActivity(intent)
         }
+
+        profileIcon.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun onCategoryImageClick(category: String) {
