@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
@@ -17,6 +18,8 @@ class Cart : AppCompatActivity() {
     private lateinit var placeOrderButton: Button
     private var list = ArrayList<ProductsItem>()
     private lateinit var orderTotalTextView: TextView
+    private lateinit var incrementBtn : ImageButton
+    private lateinit var decrementBtn: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,6 @@ class Cart : AppCompatActivity() {
         recyclerView = findViewById(R.id.RecyclerViewList)
         placeOrderButton = findViewById(R.id.placeOrderButton)
         orderTotalTextView = findViewById(R.id.orderTotalTextView)
-
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
 
@@ -45,6 +47,8 @@ class Cart : AppCompatActivity() {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
+
+
     }
 
 
