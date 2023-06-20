@@ -32,6 +32,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         //val homeImage: ImageView = findViewById(R.id.homeIcon)
 
 
+
         val image: ImageView = findViewById(R.id.imageView3)
         val price: TextView = findViewById(R.id.textView2)
         val category: TextView = findViewById(R.id.textView)
