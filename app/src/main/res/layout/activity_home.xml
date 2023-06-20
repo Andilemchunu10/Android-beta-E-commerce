@@ -43,6 +43,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
                     android:text="What are you looking for?"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="serif"
                     android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +55,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
@@ -62,7 +65,7 @@
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/search"
                     android:layout_width="40dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="41dp"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:background="@color/searchBar"
@@ -72,7 +75,7 @@
                     android:hint="Search"
                     android:inputType="text"
                     android:padding="8dp"
-                    android:textSize="15sp" >
+                    android:textSize="15sp">
 
                 </androidx.appcompat.widget.SearchView>
 
@@ -234,8 +237,7 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                />
+                android:paddingEnd="16dp" />
 
         </LinearLayout>
     </ScrollView>

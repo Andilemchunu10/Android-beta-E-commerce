@@ -67,7 +67,7 @@ class ViewOneActivity2 : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        var count = 0
+        var count = 1
 
 
 
@@ -82,7 +82,7 @@ class ViewOneActivity2 : AppCompatActivity() {
 
 
         decrementBtn.setOnClickListener {
-            var count = 0
+
             if (count > 0) {
                 count--
                 itemNum.text = count.toString()
