@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -24,9 +25,8 @@ class Home : AppCompatActivity() {
     var BASE_URL = "http://10.100.0.97:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
-    private var l= ArrayList<Image>()
-    private lateinit var cartCount:TextView
-    private var cartQuantity:Int = 0;
+    private lateinit var cartCount: TextView
+
     private lateinit var cartIcon:ImageView
 
 
@@ -38,6 +38,8 @@ class Home : AppCompatActivity() {
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
         cartIcon = findViewById(R.id.cartIcon)
+        cartCount = findViewById(R.id.cartCount)
+        updateCartCount(CartManager.getCartCount())
 
         findViewById<ImageView>(R.id.productImg).setOnClickListener {
             onCategoryImageClick("Fruits")
@@ -73,12 +75,31 @@ class Home : AppCompatActivity() {
                 return true
             }
         })
+        CartManager.updateCartCount(newCount)
+        updateCartCount(CartManager.getCartCount())
+        // Get the cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
 
+        // Update the cart count TextView
+        updateCartCount(cartItems.size)
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
 
         cartIcon.setOnClickListener{
             val intent = Intent(this, Cart::class.java)
             startActivity(intent)
         }
+
+
+    }
+
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
     }
 
     private fun onCategoryImageClick(category: String) {
@@ -86,13 +107,6 @@ class Home : AppCompatActivity() {
     }
 
 
-
-
-
-    private fun updateCartCount() {
-        TODO("Not yet implemented")
-
-    }
 
     private fun filterList(query: String?) {
         if (query != null) {
