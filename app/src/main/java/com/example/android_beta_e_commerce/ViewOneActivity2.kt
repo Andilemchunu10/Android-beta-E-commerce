@@ -31,7 +31,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         val category: TextView = findViewById(R.id.textView)
         val description: TextView = findViewById(R.id.textView5)
         val title: TextView = findViewById(R.id.title)
-        val cartIcon : ImageButton = findViewById(R.id.imageButton)
+
         //val productDescription = intent.getStringExtra("productDescription")
 
         val bundle: Bundle? = intent.extras
@@ -63,8 +63,6 @@ class ViewOneActivity2 : AppCompatActivity() {
 
         var count = 1
 
-
-
         incrementBtn.setOnClickListener {
             var pricetxt = 0.0
             count++
@@ -72,8 +70,6 @@ class ViewOneActivity2 : AppCompatActivity() {
             pricetxt *= count
             pricetxt.toString()
         }
-
-
 
         decrementBtn.setOnClickListener {
 
@@ -99,11 +95,6 @@ class ViewOneActivity2 : AppCompatActivity() {
             }
         }
 
-        cartIcon.setOnClickListener {
-//            val intent = Intent(this, AddToCart::class.java)
-//            startActivity(intent)
-            Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
-        }
 
         addToCartbutton.setOnClickListener {
 

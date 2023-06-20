@@ -4,7 +4,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-class User(val username: String, val password: String, val email: String?)
+data class User(val username: String, val password: String, val email: String?)
 
 fun readJsonFile(context: Context, fileName: String): String? {
     return try {
