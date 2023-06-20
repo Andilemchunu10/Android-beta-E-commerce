@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -24,12 +25,39 @@ class Home : AppCompatActivity() {
     private var l= ArrayList<Image>()
     private lateinit var cartCount:TextView
     private var cartQuantity:Int = 0;
+
+    private lateinit var cartIcon:ImageView
+    private lateinit var profileIcon: ImageView
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
+
+        cartIcon = findViewById(R.id.cartIcon)
+        profileIcon = findViewById(R.id.profileIcon)
+
+        findViewById<ImageView>(R.id.productImg).setOnClickListener {
+            onCategoryImageClick("Fruits")
+        }
+        findViewById<ImageView>(R.id.meatImg).setOnClickListener {
+            onCategoryImageClick("Meat")
+        }
+        findViewById<ImageView>(R.id.cerealsImg).setOnClickListener {
+            onCategoryImageClick("Breakfast")
+        }
+        findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
+            onCategoryImageClick("Frozens")
+        }
+        findViewById<ImageView>(R.id.imageView6).setOnClickListener {
+            onCategoryImageClick("Bakery")
+        }
+
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
         getAllData()
@@ -44,20 +72,25 @@ class Home : AppCompatActivity() {
                 return true
             }
         })
-        getAllData()
-    }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.bottom_menu, menu)
 
-        val cartMenuItem = menu.findItem(R.id.cartIcon)
-        val cartActionView = cartMenuItem.actionView
-        if (cartActionView != null) {
-            cartCount = cartActionView.findViewById(R.id.cartCount)
+
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
         }
-       //cartCount.setText("2")
-        cartCount.text = "2"
-        return true
+
+        profileIcon.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
+    private fun onCategoryImageClick(category: String) {
+        myAdapter.filterByCategory(category)
+    }
+
+
     private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<ProductsItem>()

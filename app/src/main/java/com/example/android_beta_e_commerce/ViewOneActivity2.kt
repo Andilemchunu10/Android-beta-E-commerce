@@ -32,6 +32,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         //val homeImage: ImageView = findViewById(R.id.homeIcon)
 
 
+
         val image: ImageView = findViewById(R.id.imageView3)
         val price: TextView = findViewById(R.id.textView2)
         val category: TextView = findViewById(R.id.textView)
@@ -66,7 +67,7 @@ class ViewOneActivity2 : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        var count = 0
+        var count = 1
 
 
 
@@ -81,7 +82,7 @@ class ViewOneActivity2 : AppCompatActivity() {
 
 
         decrementBtn.setOnClickListener {
-            var count = 0
+
             if (count > 0) {
                 count--
                 itemNum.text = count.toString()
