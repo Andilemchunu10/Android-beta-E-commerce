@@ -2,6 +2,7 @@ package com.example.android_beta_e_commerce
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,8 +20,10 @@ class ViewOneActivity2 : AppCompatActivity() {
     private lateinit var productDescriptionView: TextView
     private lateinit var productImageView: ImageView
     private lateinit var cartIcon:ImageView
+    private lateinit var cartCount: TextView
     private lateinit var profileIcon: ImageView
     private  lateinit var homeIcon:ImageView
+
 
 
 
@@ -33,9 +36,12 @@ class ViewOneActivity2 : AppCompatActivity() {
         val incrementBtn: ImageButton = findViewById(R.id.imageButton3)
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
-        val homeIcon: ImageView = findViewById(R.id.homeIcon)
-        val cartIcon:ImageView = findViewById(R.id.cartIcon)
 
+        cartIcon = findViewById(R.id.cartIcon)
+        cartCount = findViewById(R.id.cartCount)
+
+        val homeIcon: ImageView = findViewById(R.id.homeIcon)
+       
 
 
 
@@ -63,6 +69,19 @@ class ViewOneActivity2 : AppCompatActivity() {
         price.text = priceFormatted
         title.text = productTitle
         //image.= productPrice
+
+        // Get the cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
+
+        // Update the cart count TextView
+        updateCartCount(cartItems.size)
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
 
 
        backbutton.setOnClickListener {
@@ -121,9 +140,32 @@ class ViewOneActivity2 : AppCompatActivity() {
         }
 
         addToCartbutton.setOnClickListener {
-            Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
+            val product = ProductsItem(
+                name = productTitle ?: "",
+                description = "",
+                category = Category(0, ""),
+                price = productPrice ?: 0.0,
+                image = Image(0, productImage ?: ""),
+                productId = 0
+            )
+            if (CartManager.isProductAdded(product)) {
+                Toast.makeText(this, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
+            } else {
+                CartManager.addItem(product)
+                Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
         }
 
 
+    }
+
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
     }
 }
