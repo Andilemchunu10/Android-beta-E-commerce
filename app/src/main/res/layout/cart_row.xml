@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="145dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+
+        <ImageView
+            android:id="@+id/cartImg"
+            android:layout_width="86dp"
+            android:layout_height="87dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="5dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/kellogs" />
+
+        <TextView
+            android:id="@+id/cartProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="100dp"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:fontFamily="serif"
+            android:text="Kellogs"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="50dp"
+            android:text="R" />
+
+        <TextView
+            android:id="@+id/cartPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="50dp"
+            android:text="55.99" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+           android:layout_marginLeft="200dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/backgroundColor"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/decrement"
+                android:layout_width="35dp"
+                android:layout_height="42dp"
+                android:background="@color/backgroundColor"
+                app:srcCompat="@drawable/remove" />
+
+            <TextView
+                android:id="@+id/counts"
+                android:layout_width="12dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:background="@color/backgroundColor"
+                android:paddingTop="4dp"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/increment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/backgroundColor"
+                app:srcCompat="@drawable/add_circle" />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.cardview.widget.CardView>

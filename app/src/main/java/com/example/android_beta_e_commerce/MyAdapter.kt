@@ -7,16 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class MyAdapter(private val con: Context, var list: List<ProductsItem>) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
     private lateinit var mListener: onItemClickListener
+    private val cartItems: MutableList<ProductsItem> = mutableListOf()
+
 
     interface onItemClickListener{
         fun onItemClickListener(position: Int)
         fun onBindViewHolder(holder: ViewHolder, position: Int)
+    }
+
+    private var filteredList: List<ProductsItem> = list
+
+    fun filterByCategory(category: String) {
+        filteredList = list.filter { item -> item.category.name  == category}
+        notifyDataSetChanged()
     }
 
     fun setOnItemClicklistener(listener: onItemClickListener){
@@ -32,11 +42,23 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
                 listener.onItemClickListener(adapterPosition)
             }
 
+            add.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val product = list[position]
+                    addToCart(product)
+                }
+            }
+
         }
+    }
+    private fun addToCart(product: ProductsItem) {
+        cartItems.add(product)
+        // Update UI or perform any other actions related to adding the product to the cart
     }
 
     fun setFilteredList(list: List<ProductsItem>){
-        this.list = list
+        this.filteredList = list
 
         notifyDataSetChanged()
     }
@@ -47,31 +69,47 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
 
     override fun getItemCount(): Int {
+        return filteredList.size
 
-        return list.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = list[position] // Get the ProductsItem at the current position
+        val product = filteredList[position] // Get the ProductsItem at the current position
+
 
         Glide.with(con).load(product.image.imageURL).into(holder.img)
 
-        holder.name.text =list[position].name
-        holder.price.text =list[position].price.toString()
+        holder.name.text =filteredList[position].name
+        holder.price.text =filteredList[position].price.toString()
 
         // Set the addIcon image
         holder.add.setImageResource(R.drawable.add_icon)
+        holder.add.setOnClickListener {
+            val product = filteredList[position]
+
+            if (CartManager.isProductAdded(product)) {
+            Toast.makeText(con, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
+        }else{
+                CartManager.addItem(product)
+                //cartItems.add(product)
+                Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show() // Update UI or perform any other actions related to adding the product to the cart
+
+        }
+
+
+        }
+
         holder.itemView.setOnClickListener {         // Create an Intent to start the new activity
             val intent = Intent(holder.itemView.context, ViewOneActivity2::class.java)
             // Pass the data for the clicked item through the Intent
             //intent.putExtra("productId", product.id)
             //intent.putExtra("productName", product.price)
-            val cat  = list[position].category.name
+            val cat  = filteredList[position].category.name
             intent.putExtra("productCategory", cat)
             intent.putExtra("productDescription", product.description)
             intent.putExtra("productTitle", product.name)
             intent.putExtra("productPrice",product.price)
-            val productImage  = list[position].image.imageURL // Assuming "image" is the URL obtained from the API
+            val productImage  = filteredList[position].image.imageURL // Assuming "image" is the URL obtained from the API
             intent.putExtra("productImage", productImage)
 
             // Add more data as needed

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Android-beta-e-commerce</string>
     <string name="demo">The Parmalat Fixed Weight Cheese range is made from first grade quality cheese that is full of flavour. A rich flavoured, full fat, hard cheese.</string>
+    <string name="Home">Home</string>
+    <string name="Cart">Cart</string>
 </resources>

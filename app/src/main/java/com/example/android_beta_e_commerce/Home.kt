@@ -1,13 +1,11 @@
 package com.example.android_beta_e_commerce
-
-
-
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -25,9 +23,13 @@ class Home : AppCompatActivity() {
     var BASE_URL = "http://10.100.0.97:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
-    private var l= ArrayList<Image>()
-    private lateinit var cartCount:TextView
-    private var cartQuantity:Int = 0;
+
+    private lateinit var cartCount: TextView
+
+
+    private lateinit var cartIcon:ImageView
+    private lateinit var profileIcon: ImageView
+
 
 
 
@@ -38,47 +40,77 @@ class Home : AppCompatActivity() {
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
 
+        cartIcon = findViewById(R.id.cartIcon)
+
+        cartCount = findViewById(R.id.cartCount)
+        updateCartCount(CartManager.getCartCount())
+
+        profileIcon = findViewById(R.id.profileIcon)
+
+
+        findViewById<ImageView>(R.id.productImg).setOnClickListener {
+            onCategoryImageClick("Fruits")
+        }
+        findViewById<ImageView>(R.id.meatImg).setOnClickListener {
+            onCategoryImageClick("Meat")
+        }
+        findViewById<ImageView>(R.id.cerealsImg).setOnClickListener {
+            onCategoryImageClick("Breakfast")
+        }
+        findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
+            onCategoryImageClick("Frozens")
+        }
+        findViewById<ImageView>(R.id.imageView6).setOnClickListener {
+            onCategoryImageClick("Bakery")
+        }
 
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
         getAllData()
         myAdapter = MyAdapter(this,list)
-
-
         rvHome.adapter = myAdapter
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterList(newText)
                 return true
             }
         })
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.bottom_menu, menu)
+        // Get the cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
 
-        val cartMenuItem = menu.findItem(R.id.cartIcon)
-        val cartActionView = cartMenuItem.actionView
+        // Update the cart count TextView
+        updateCartCount(cartItems.size)
 
-        if (cartActionView != null) {
-            cartCount = cartActionView.findViewById(R.id.cartCount)
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
         }
-        cartCount.text = "2"
 
-        updateCartCount() // Initialize cart count display
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
+        }
 
-        return true
+        profileIcon.setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
-    private fun updateCartCount() {
-        TODO("Not yet implemented")
-
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
     }
+    private fun onCategoryImageClick(category: String) {
+        myAdapter.filterByCategory(category)
+    }
+
 
     private fun filterList(query: String?) {
         if (query != null) {
@@ -95,7 +127,6 @@ class Home : AppCompatActivity() {
             }
         }
     }
-
     private fun getAllData() {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -122,19 +153,14 @@ class Home : AppCompatActivity() {
                             override fun onItemClickListener(position: Int) {
                                 //val intent = Intent(this@Home, ViewOneActivity2::class.java)
                                 //intent.putExtra("information", data)
-
                                 Toast.makeText(this@Home,"You Clicked on. $position",Toast.LENGTH_SHORT).show()
-
                             }
-
                             override fun onBindViewHolder(
                                 holder: MyAdapter.ViewHolder,
                                 position: Int
                             ) {
                                 TODO("Not yet implemented")
                             }
-
-
                         }
                         )
                     }
@@ -142,13 +168,9 @@ class Home : AppCompatActivity() {
                     Log.e("Home", "Failed to fetch data: ${response.message()}")
                 }
             }
-
-
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 Log.e("Home", "Failed to fetch data: ${t.message}")
             }
         })
     }
-
 }
-
