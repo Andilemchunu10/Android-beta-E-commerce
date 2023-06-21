@@ -32,8 +32,10 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
         val product = list[position] // Get the ProductsItem at the current position
         Glide.with(con).load(product.image.imageURL).into(holder.img)
         holder.name.text = list[position].name
-        holder.price.text = list[position].price.toString()
+        holder.price.text = "$" + String.format("%.2f", product.price)
 
+
+        // Display the price
     }
 
 }

@@ -63,6 +63,12 @@ class Cart : AppCompatActivity() {
         cartAdapter = CartAdapter(this, cartItems)
         recyclerView.adapter = cartAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        // Calculate the total order price
+        val totalPrice = calculateTotalPrice(cartItems)
+        // Update the total order price TextView
+        orderTotalTextView.text = "Total: $" + String.format("%.2f", totalPrice)
+        // ...
+
 
         // Set click listener for the place order button
         placeOrderButton.setOnClickListener {
@@ -138,6 +144,15 @@ class Cart : AppCompatActivity() {
         } else {
             View.INVISIBLE // Hide the cartCount TextView
         }
+    }
+    private fun calculateTotalPrice(cartItems: List<ProductsItem>): Double {
+        var totalPrice = 0.0
+        for (item in cartItems) {
+            val quantity = CartManager.getItemQuantity(item)
+            val price = item.price
+            totalPrice += price * quantity
+        }
+        return totalPrice
     }
 }
 
