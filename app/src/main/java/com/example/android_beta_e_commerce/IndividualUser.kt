@@ -7,10 +7,22 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.Charset
 
-
 class IndividualUser(val username: String, val password: String, val email: String)
 
 
+fun readJsonFile(context: Context, fileName: String): String? {
+    try {
+        val inputStream = context.openFileInput(fileName)
+        val size = inputStream.available()
+        val buffer = ByteArray(size)
+        inputStream.read(buffer)
+        inputStream.close()
+        return String(buffer, Charset.defaultCharset())
+    } catch (ex: IOException) {
+        ex.printStackTrace()
+    }
+    return null
+}
 
 fun writeJsonFile(context: Context, fileName: String, jsonContent: String) {
     try {
@@ -44,9 +56,6 @@ fun registerUser(context: Context, user: User) {
 
         // Check if the user already exists
         if (userExists(users, user.username)) {
-
-//            Snackbar.make(it, "Added to Cart", Snackbar.LENGTH_SHORT).show()
-
             // User already exists, handle accordingly
             // For example, show an error message to the user
         } else {
@@ -68,4 +77,8 @@ fun registerUser(context: Context, user: User) {
         }
     }
 }
+
+
+
+
 
