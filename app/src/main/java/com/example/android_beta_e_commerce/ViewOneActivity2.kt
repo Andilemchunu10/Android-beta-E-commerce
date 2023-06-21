@@ -72,22 +72,25 @@ class ViewOneActivity2 : AppCompatActivity() {
 
 
         incrementBtn.setOnClickListener {
-            var pricetxt = 0.0
             count++
             itemNum.text = count.toString()
-            pricetxt *= count
-            pricetxt.toString()
+            val initialPrice = bundle.getDouble("productPrice")
+            val updatedPrice = initialPrice * count
+            val priceFormatted = String.format("%.2f", updatedPrice)
+            price.text = priceFormatted
         }
 
 
 
-        decrementBtn.setOnClickListener {
 
-            if (count > 0) {
+        decrementBtn.setOnClickListener {
+            if (count > 1) {
                 count--
                 itemNum.text = count.toString()
-
-
+                val initialPrice = bundle.getDouble("productPrice")
+                val updatedPrice = initialPrice * count
+                val priceFormatted = String.format("%.2f", updatedPrice)
+                price.text = priceFormatted
             }
         }
 

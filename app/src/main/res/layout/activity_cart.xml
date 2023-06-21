@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="122dp"
                     android:layout_marginBottom="19dp"
+                    android:textColor="@color/black"
                     android:text="My Happy Cart"
                     android:textStyle="bold"
                     android:fontFamily="serif"
@@ -61,14 +63,10 @@
                     android:id="@+id/RecyclerViewList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    android:layout_marginTop="4dp"
                     tools:listitem="@layout/cart_row" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="16dp" />
 
                 <TextView
                     android:id="@+id/orderTotalTextView"
@@ -81,13 +79,11 @@
 
                 <Button
                     android:id="@+id/placeOrderButton"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_margin="8dp"
-                    android:text="Place Order"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/rounded_corner"
+                    android:text="Checkout" />
 
             </LinearLayout>
         </LinearLayout>
@@ -101,6 +97,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:theme="@style/Theme.MaterialComponents.Light">
+
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"
@@ -184,4 +181,4 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout >
