@@ -96,6 +96,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
 
         }
 
+
         }
 
         holder.itemView.setOnClickListener {         // Create an Intent to start the new activity

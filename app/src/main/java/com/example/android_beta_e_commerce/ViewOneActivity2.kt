@@ -21,6 +21,9 @@ class ViewOneActivity2 : AppCompatActivity() {
     private lateinit var productImageView: ImageView
     private lateinit var cartIcon:ImageView
     private lateinit var cartCount: TextView
+    private lateinit var profileIcon: ImageView
+    private  lateinit var homeIcon:ImageView
+
 
 
 
@@ -33,9 +36,14 @@ class ViewOneActivity2 : AppCompatActivity() {
         val incrementBtn: ImageButton = findViewById(R.id.imageButton3)
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
+
         cartIcon = findViewById(R.id.cartIcon)
         cartCount = findViewById(R.id.cartCount)
-        //val homeImage: ImageView = findViewById(R.id.homeIcon)
+
+        val homeIcon: ImageView = findViewById(R.id.homeIcon)
+       
+
+
 
 
 
@@ -76,8 +84,18 @@ class ViewOneActivity2 : AppCompatActivity() {
         }
 
 
-        backbutton.setOnClickListener {
+       backbutton.setOnClickListener {
             val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+       }
+
+        homeIcon.setOnClickListener{
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+
+        cartIcon.setOnClickListener{
+            val intent = Intent(this, Cart::class.java)
             startActivity(intent)
         }
 
@@ -86,27 +104,24 @@ class ViewOneActivity2 : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        var count = 0
-
-
-
+        var count = 1
         incrementBtn.setOnClickListener {
-            var pricetxt = 0.0
             count++
             itemNum.text = count.toString()
-            pricetxt *= count
-            pricetxt.toString()
+            val initialPrice = bundle.getDouble("productPrice")
+            val updatedPrice = initialPrice * count
+            val priceFormatted = String.format("%.2f", updatedPrice)
+            price.text = priceFormatted
         }
 
-
-
         decrementBtn.setOnClickListener {
-            var count = 0
-            if (count > 0) {
+            if (count > 1) {
                 count--
                 itemNum.text = count.toString()
-
-
+                val initialPrice = bundle.getDouble("productPrice")
+                val updatedPrice = initialPrice * count
+                val priceFormatted = String.format("%.2f", updatedPrice)
+                price.text = priceFormatted
             }
         }
 
@@ -146,6 +161,7 @@ class ViewOneActivity2 : AppCompatActivity() {
             val intent = Intent(this, Cart::class.java)
             startActivity(intent)
         }
+
 
     }
 
