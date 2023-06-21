@@ -17,24 +17,19 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
         var img = v.findViewById<ImageView>(R.id.cartImg)
         var name = v.findViewById<TextView>(R.id.cartProductName)
         var price = v.findViewById<TextView>(R.id.cartPrice)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(con).inflate(R.layout.cart_row,parent,false)
         return ViewHolder(view)
-
     }
 
-
     override fun getItemCount(): Int {
-
         return list.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = list[position] // Get the ProductsItem at the current position
-
         Glide.with(con).load(product.image.imageURL).into(holder.img)
         holder.name.text = list[position].name
         holder.price.text = list[position].price.toString()

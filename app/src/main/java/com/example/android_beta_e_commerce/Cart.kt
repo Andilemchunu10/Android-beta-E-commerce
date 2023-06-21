@@ -79,6 +79,7 @@ class Cart : AppCompatActivity() {
     }
 
 
+
         private fun placeOrder() {
         Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
         // Perform the order placement logic here
