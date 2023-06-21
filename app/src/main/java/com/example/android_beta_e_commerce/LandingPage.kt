@@ -1,5 +1,6 @@
 package com.example.android_beta_e_commerce
 
+
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
@@ -14,7 +15,7 @@ class LandingPage : AppCompatActivity() {
         setContentView(R.layout.activity_landing_page)
 
         this.findViewById<Button>(R.id.btn_order).setOnClickListener {
-            startActivity(Intent(this, Home::class.java))
+            startActivity(Intent(this, Login::class.java))
         }
     }
 }
