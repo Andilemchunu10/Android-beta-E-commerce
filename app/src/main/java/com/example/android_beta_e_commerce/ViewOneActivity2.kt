@@ -2,6 +2,7 @@ package com.example.android_beta_e_commerce
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,6 +20,8 @@ class ViewOneActivity2 : AppCompatActivity() {
     private lateinit var productDescriptionView: TextView
     private lateinit var productImageView: ImageView
     private lateinit var cartIcon:ImageView
+    private lateinit var cartCount: TextView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
         val itemNum: TextView = findViewById(R.id.textView8)
         cartIcon = findViewById(R.id.cartIcon)
+        cartCount = findViewById(R.id.cartCount)
         //val homeImage: ImageView = findViewById(R.id.homeIcon)
 
 
@@ -57,6 +61,19 @@ class ViewOneActivity2 : AppCompatActivity() {
         price.text = priceFormatted
         title.text = productTitle
         //image.= productPrice
+
+        // Get the cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
+
+        // Update the cart count TextView
+        updateCartCount(cartItems.size)
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
 
 
         backbutton.setOnClickListener {
@@ -130,5 +147,9 @@ class ViewOneActivity2 : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
     }
 }
