@@ -24,6 +24,7 @@ class Cart : AppCompatActivity() {
     private lateinit var orderTotalTextView: TextView
     private lateinit var cartCount: TextView
     private var list = ArrayList<ProductsItem>()
+    private lateinit var homeIcon: ImageView
     private lateinit var sharedPreferences: SharedPreferences
 
 
@@ -41,6 +42,7 @@ class Cart : AppCompatActivity() {
         placeOrderButton = findViewById(R.id.placeOrderButton)
         orderTotalTextView = findViewById(R.id.orderTotalTextView)
         cartCount = findViewById(R.id.cartCount)
+        homeIcon=findViewById(R.id.homeIcon)
         sharedPreferences = getSharedPreferences("CartPreferences", Context.MODE_PRIVATE)
 
         // Get the cart items from the CartManager
@@ -93,6 +95,11 @@ class Cart : AppCompatActivity() {
 
         backbuttons.setOnClickListener {
 
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+
+        homeIcon.setOnClickListener {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
