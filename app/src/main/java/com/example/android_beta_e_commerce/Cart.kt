@@ -23,6 +23,7 @@ class Cart : AppCompatActivity() {
     private lateinit var placeOrderButton: Button
     private lateinit var orderTotalTextView: TextView
     private lateinit var cartCount: TextView
+    private var list = ArrayList<ProductsItem>()
     private lateinit var sharedPreferences: SharedPreferences
 
 

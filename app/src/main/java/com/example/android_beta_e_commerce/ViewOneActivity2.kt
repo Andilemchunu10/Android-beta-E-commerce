@@ -39,8 +39,7 @@ class ViewOneActivity2 : AppCompatActivity() {
 
         cartIcon = findViewById(R.id.cartIcon)
         cartCount = findViewById(R.id.cartCount)
-
-        val homeIcon: ImageView = findViewById(R.id.homeIcon)
+        homeIcon = findViewById(R.id.homeIcon)
        
 
 
