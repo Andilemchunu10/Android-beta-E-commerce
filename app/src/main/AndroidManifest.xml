@@ -26,7 +26,7 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".AddToCart"
+            android:name=".Cart"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
