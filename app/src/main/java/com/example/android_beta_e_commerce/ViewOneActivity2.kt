@@ -111,5 +111,6 @@ class ViewOneActivity2 : AppCompatActivity() {
 //            startActivity(intent)
         }
 
+
     }
 }

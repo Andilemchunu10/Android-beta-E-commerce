@@ -5,7 +5,7 @@ data class CartItem(
     val quantity: Int
 
 
-) {
+) {git
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -16,7 +16,11 @@ data class CartItem(
         if (quantity != other.quantity) return false
 
         return true
+
+
     }
+
+
 
 
     override fun toString(): String {

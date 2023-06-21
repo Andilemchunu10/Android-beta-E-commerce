@@ -1,6 +1,4 @@
 package com.example.android_beta_e_commerce
-
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,8 +25,10 @@ class Home : AppCompatActivity() {
     private var l= ArrayList<Image>()
     private lateinit var cartCount:TextView
     private var cartQuantity:Int = 0;
+
     private lateinit var cartIcon:ImageView
     private lateinit var profileIcon: ImageView
+
 
 
 
@@ -38,6 +38,7 @@ class Home : AppCompatActivity() {
 
         rvHome = findViewById(R.id.view1)
         searchView = findViewById(R.id.search)
+
         cartIcon = findViewById(R.id.cartIcon)
         profileIcon = findViewById(R.id.profileIcon)
 
@@ -61,15 +62,11 @@ class Home : AppCompatActivity() {
 
         getAllData()
         myAdapter = MyAdapter(this,list)
-
-
         rvHome.adapter = myAdapter
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterList(newText)
                 return true
@@ -94,7 +91,6 @@ class Home : AppCompatActivity() {
     }
 
 
-
     private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<ProductsItem>()
@@ -110,7 +106,6 @@ class Home : AppCompatActivity() {
             }
         }
     }
-
     private fun getAllData() {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -137,19 +132,14 @@ class Home : AppCompatActivity() {
                             override fun onItemClickListener(position: Int) {
                                 //val intent = Intent(this@Home, ViewOneActivity2::class.java)
                                 //intent.putExtra("information", data)
-
                                 Toast.makeText(this@Home,"You Clicked on. $position",Toast.LENGTH_SHORT).show()
-
                             }
-
                             override fun onBindViewHolder(
                                 holder: MyAdapter.ViewHolder,
                                 position: Int
                             ) {
                                 TODO("Not yet implemented")
                             }
-
-
                         }
                         )
                     }
@@ -157,13 +147,9 @@ class Home : AppCompatActivity() {
                     Log.e("Home", "Failed to fetch data: ${response.message()}")
                 }
             }
-
-
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 Log.e("Home", "Failed to fetch data: ${t.message}")
             }
         })
     }
-
 }
-
