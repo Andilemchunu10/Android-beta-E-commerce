@@ -75,11 +75,9 @@ class Home : AppCompatActivity() {
                 return true
             }
         })
-        CartManager.updateCartCount(newCount)
-        updateCartCount(CartManager.getCartCount())
+
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
-
         // Update the cart count TextView
         updateCartCount(cartItems.size)
 
@@ -97,9 +95,26 @@ class Home : AppCompatActivity() {
 
 
     }
+    override fun onResume() {
+        super.onResume()
+
+        // Get the latest cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
+
+        // Update the cart count TextView
+        updateCartCount(CartManager.getCartItems().size)
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
+    }
 
     private fun updateCartCount(count: Int) {
         cartCount.text = count.toString()
+        cartCount.visibility = if (count > 0) View.VISIBLE else View.INVISIBLE
     }
 
     private fun onCategoryImageClick(category: String) {

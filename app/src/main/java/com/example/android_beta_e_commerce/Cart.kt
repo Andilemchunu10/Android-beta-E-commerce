@@ -1,6 +1,8 @@
 package com.example.android_beta_e_commerce
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,6 +20,7 @@ class Cart : AppCompatActivity() {
     private lateinit var placeOrderButton: Button
     private lateinit var orderTotalTextView: TextView
     private lateinit var cartCount: TextView
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,15 +34,17 @@ class Cart : AppCompatActivity() {
         placeOrderButton = findViewById(R.id.placeOrderButton)
         orderTotalTextView = findViewById(R.id.orderTotalTextView)
         cartCount = findViewById(R.id.cartCount)
+        sharedPreferences = getSharedPreferences("CartPreferences", Context.MODE_PRIVATE)
 
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
 
+
         // Update the cart count TextView
-        updateCartCount(cartItems.size)
+        updateCartCount(CartManager.getCartItems().size)
 
         // Set cartCount visibility based on the cartItems size
-        cartCount.visibility = if (cartItems.isNotEmpty()) {
+        cartCount.visibility = if (CartManager.getCartItems().isNotEmpty()) {
             View.VISIBLE // Display the cartCount TextView
         } else {
             View.INVISIBLE // Hide the cartCount TextView
@@ -67,6 +72,7 @@ class Cart : AppCompatActivity() {
         cartCount.text = count.toString()
     }
 
+
     private fun placeOrder() {
         // Perform the order placement logic here
         // Clear the cart or update the count based on your implementation
@@ -74,5 +80,22 @@ class Cart : AppCompatActivity() {
 
         // Update the cart count TextView
         updateCartCount(0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Get the latest cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
+
+        // Update the cart count TextView
+        updateCartCount(cartItems.size)
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
     }
 }

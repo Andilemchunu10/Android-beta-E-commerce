@@ -5,9 +5,7 @@ object CartManager {
 
     private var cartCount: Int = 0
 
-    fun updateCartCount(count: Int) {
-        cartCount = count
-    }
+
 
     fun getCartCount(): Int {
         return cartCount
