@@ -15,7 +15,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
 
     private lateinit var mListener: onItemClickListener
     private val cartItems: MutableList<ProductsItem> = mutableListOf()
-
+    private var count = 1
 
     interface onItemClickListener{
         fun onItemClickListener(position: Int)
@@ -90,7 +90,8 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             if (CartManager.isProductAdded(product)) {
             Toast.makeText(con, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
         }else{
-                CartManager.addItem(product)
+                val quantity = count
+                CartManager.addItem(product, quantity)
                 //cartItems.add(product)
                 Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show() // Update UI or perform any other actions related to adding the product to the cart
 

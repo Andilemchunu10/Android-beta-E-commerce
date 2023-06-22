@@ -11,7 +11,7 @@ object CartManager {
         return cartCount
     }
 
-    fun addItem(item: ProductsItem) {
+    fun addItem(item: ProductsItem, quantity: Int) {
         if (!cartItems.contains(item)) {
             cartItems.add(item)
         }
@@ -32,5 +32,10 @@ object CartManager {
 
     fun isProductAdded(item: ProductsItem): Boolean {
         return cartItems.contains(item)
+    }
+    fun getItemQuantity(item: ProductsItem): Int {
+        // Implement the logic to get the quantity of the item in the cart
+        // For now, assuming the quantity is always 1
+        return 1
     }
 }
