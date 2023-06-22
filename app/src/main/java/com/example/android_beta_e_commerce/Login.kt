@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
+import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
@@ -26,6 +28,29 @@ class Login : AppCompatActivity() {
         val usernameW: TextView = findViewById(R.id.usernameW)
         val passwordW: TextView = findViewById(R.id.passwordW)
 
+        val showPassword: ImageView = findViewById(R.id.showPasswordLogin)
+
+        password.transformationMethod = PasswordTransformationMethod.getInstance()
+        showPassword.setImageResource(R.drawable.hide_password)
+
+        showPassword.setOnClickListener {
+
+                val isVisible = password.transformationMethod is PasswordTransformationMethod
+
+                if (isVisible) {
+                    // Show password
+                    password.transformationMethod = null
+                    showPassword.setImageResource(R.drawable.show_password_icon)
+                } else {
+                    // Hide password
+                    password.transformationMethod = PasswordTransformationMethod.getInstance()
+                    showPassword.setImageResource(R.drawable.hide_password)
+                }
+
+                // Move cursor to the end of the text
+                password.setSelection(password.text.length)
+
+        }
 
         skipTxt?.setOnClickListener {
             val intent = Intent(this, Home::class.java)
@@ -35,6 +60,7 @@ class Login : AppCompatActivity() {
             val intent = Intent (this, Register::class.java)
             startActivity(intent)
         }
+
 
         loginbtn.setOnClickListener {
 

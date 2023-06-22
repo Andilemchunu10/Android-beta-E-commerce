@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameTxt"
         app:layout_constraintVertical_bias="0.063"
-        app:passwordToggleEnabled="true"/>
+        app:passwordToggleEnabled="true" />
 
     <Button
         android:id="@+id/registerBtn"
@@ -106,7 +106,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTxt"
         app:layout_constraintVertical_bias="0.058"
-        app:passwordToggleEnabled="true"/>
+        app:passwordToggleEnabled="true" />
+
+    <ImageView
+        android:id="@+id/showConfirmationIcon"
+        android:layout_width="30dp"
+        android:layout_height="27dp"
+        app:layout_constraintBottom_toBottomOf="@+id/confirmPasswordTxt"
+        app:layout_constraintEnd_toEndOf="@+id/confirmPasswordTxt"
+        app:layout_constraintTop_toBottomOf="@+id/passwordWarning"
+        app:srcCompat="@drawable/hide_password" />
 
     <TextView
         android:id="@+id/skiptxt"
@@ -162,5 +171,14 @@
         app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
+
+    <ImageView
+        android:id="@+id/showPasswordIcon"
+        android:layout_width="30dp"
+        android:layout_height="27dp"
+        app:layout_constraintBottom_toBottomOf="@+id/passwordTxt"
+        app:layout_constraintEnd_toEndOf="@+id/passwordTxt"
+        app:layout_constraintTop_toTopOf="@+id/passwordTxt"
+        app:srcCompat="@drawable/hide_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
