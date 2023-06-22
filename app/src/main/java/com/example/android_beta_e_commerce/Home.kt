@@ -23,10 +23,7 @@ class Home : AppCompatActivity() {
     var BASE_URL = "http://10.100.0.97:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
-
     private lateinit var cartCount: TextView
-
-
     private lateinit var cartIcon:ImageView
     private lateinit var profileIcon: ImageView
 
@@ -82,15 +79,16 @@ class Home : AppCompatActivity() {
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
 
-        // Update the cart count TextView
-        updateCartCount(cartItems.size)
+
 
         // Set cartCount visibility based on the cartItems size
         cartCount.visibility = if (cartItems.isNotEmpty()) {
+            updateCartCount(cartItems.size)
             View.VISIBLE // Display the cartCount TextView
         } else {
             View.INVISIBLE // Hide the cartCount TextView
         }
+        // Update the cart count TextView
 
         cartIcon.setOnClickListener{
             val intent = Intent(this, Cart::class.java)
@@ -101,6 +99,7 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
+
 
     }
 
@@ -122,8 +121,10 @@ class Home : AppCompatActivity() {
             }
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
+                rvHome.visibility = View.GONE
             } else {
                 myAdapter.setFilteredList(filteredList)
+                rvHome.visibility = View.VISIBLE
             }
         }
     }

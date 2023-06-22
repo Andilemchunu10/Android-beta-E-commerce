@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
-class Cart : AppCompatActivity() {
+class Cart : AppCompatActivity(){
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartAdapter: CartAdapter
     private lateinit var placeOrderButton: Button
@@ -25,6 +25,7 @@ class Cart : AppCompatActivity() {
     private lateinit var cartCount: TextView
     private var list = ArrayList<ProductsItem>()
     private lateinit var homeIcon: ImageView
+    private lateinit var checkout:Button
     private lateinit var sharedPreferences: SharedPreferences
 
 
@@ -43,6 +44,8 @@ class Cart : AppCompatActivity() {
         orderTotalTextView = findViewById(R.id.orderTotalTextView)
         cartCount = findViewById(R.id.cartCount)
         homeIcon=findViewById(R.id.homeIcon)
+        checkout = findViewById(R.id.placeOrderButton)
+
         sharedPreferences = getSharedPreferences("CartPreferences", Context.MODE_PRIVATE)
 
         // Get the cart items from the CartManager
@@ -63,11 +66,20 @@ class Cart : AppCompatActivity() {
         cartAdapter = CartAdapter(this, cartItems)
         recyclerView.adapter = cartAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        // Calculate the total order price
+        val totalPrice = calculateTotalPrice(cartItems)
+        // Update the total order price TextView
+        orderTotalTextView.text = "Total: R" + String.format("%.2f", totalPrice)
+        // ...
+
 
         // Set click listener for the place order button
         placeOrderButton.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
             placeOrder()
         }
+
         ItemTouchHelper(object:ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -113,13 +125,14 @@ class Cart : AppCompatActivity() {
 
 
         private fun placeOrder() {
-        Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
+
+        //Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
         // Perform the order placement logic here
         // Clear the cart or update the count based on your implementation
-        CartManager.clearCart()
+      //  CartManager.clearCart()
 
         // Update the cart count TextView
-        updateCartCount(0)
+       // updateCartCount(0)
     }
 
 
@@ -138,6 +151,15 @@ class Cart : AppCompatActivity() {
         } else {
             View.INVISIBLE // Hide the cartCount TextView
         }
+    }
+    private fun calculateTotalPrice(cartItems: List<ProductsItem>): Double {
+        var totalPrice = 0.0
+        for (item in cartItems) {
+            val quantity = CartManager.getItemQuantity(item)
+            val price = item.price
+            totalPrice += price * quantity
+        }
+        return totalPrice
     }
 }
 
