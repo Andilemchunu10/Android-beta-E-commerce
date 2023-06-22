@@ -68,25 +68,25 @@ class Register : AppCompatActivity() {
             password.setSelection(password.text.length)
         }
 
-        confirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-        showConfirmationPassword.setImageResource(R.drawable.hide_password)
-
-        showConfirmationPassword.setOnClickListener {
-            val isVisible = confirmPassword.transformationMethod is PasswordTransformationMethod
-
-            if (isVisible) {
-                // Show password
-                confirmPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                showConfirmationPassword.setImageResource(R.drawable.show_password_icon)
-            } else {
-                // Hide password
-                confirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                showConfirmationPassword.setImageResource(R.drawable.hide_password)
-            }
-
-            // Move cursor to the end of the text
-            confirmPassword.setSelection(confirmPassword.text.length)
-        }
+//        confirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+//        showConfirmationPassword.setImageResource(R.drawable.hide_password)
+//
+//        showConfirmationPassword.setOnClickListener {
+//            val isVisible = confirmPassword.transformationMethod is PasswordTransformationMethod
+//
+//            if (isVisible) {
+//                // Show password
+//                confirmPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+//                showConfirmationPassword.setImageResource(R.drawable.show_password_icon)
+//            } else {
+//                // Hide password
+//                confirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+//                showConfirmationPassword.setImageResource(R.drawable.hide_password)
+//            }
+//
+//            // Move cursor to the end of the text
+//            confirmPassword.setSelection(confirmPassword.text.length)
+//        }
 
 
         registerTextview.setOnClickListener {

@@ -32,10 +32,6 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
                 // Handle increment button click
                 count++
                 counts.text = count.toString()
-
-
-
-
 //                val priceValue = price.text.toString().toDouble()
 //                val amount: Double = count.toDouble() * priceValue
 //                val priceFormatted = String.format("%.2f", amount)
