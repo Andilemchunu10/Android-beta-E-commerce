@@ -79,15 +79,16 @@ class Home : AppCompatActivity() {
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
 
-        // Update the cart count TextView
-        updateCartCount(cartItems.size)
+
 
         // Set cartCount visibility based on the cartItems size
         cartCount.visibility = if (cartItems.isNotEmpty()) {
+            updateCartCount(cartItems.size)
             View.VISIBLE // Display the cartCount TextView
         } else {
             View.INVISIBLE // Hide the cartCount TextView
         }
+        // Update the cart count TextView
 
         cartIcon.setOnClickListener{
             val intent = Intent(this, Cart::class.java)
