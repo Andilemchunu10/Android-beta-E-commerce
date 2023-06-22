@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +18,55 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
         var img = v.findViewById<ImageView>(R.id.cartImg)
         var name = v.findViewById<TextView>(R.id.cartProductName)
         var price = v.findViewById<TextView>(R.id.cartPrice)
+        var increment = v.findViewById<ImageButton>(R.id.increment)
+        var decrement = v.findViewById<ImageButton>(R.id.decrement)
+        var counts =  v.findViewById<TextView>(R.id.counts)
+        var totalCost = v.findViewById<TextView>(R.id.totalCost)
+
+        var count = 1
+
+        init {
+
+            // Set click listeners for increment and decrement buttons
+            increment.setOnClickListener {
+                // Handle increment button click
+                count++
+                counts.text = count.toString()
+
+
+
+
+//                val priceValue = price.text.toString().toDouble()
+//                val amount: Double = count.toDouble() * priceValue
+//                val priceFormatted = String.format("%.2f", amount)
+//                totalCost.text = priceFormatted
+                // Add your desired logic here
+            }
+
+            decrement.setOnClickListener {
+                // Handle decrement button click
+                if (count<1) {
+                    count=1
+                }
+                count--
+                counts.text = count.toString()
+//                val priceValue = price.text.toString().toDouble()
+//                val amount: Double = count.toDouble() * priceValue
+//                val priceFormatted = String.format("%.2f", amount)
+//                totalCost.text = priceFormatted
+
+
+
+                // Add your desired logic here
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(con).inflate(R.layout.cart_row,parent,false)
         return ViewHolder(view)
     }
+
 
     override fun getItemCount(): Int {
         return list.count()
@@ -34,6 +78,13 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
         holder.name.text = list[position].name
         holder.price.text = list[position].price.toString()
 
+        val incrementButton = holder.increment
+        val decrementButton = holder.decrement
+        val counts = holder.counts
+        val price = holder.price
+
     }
+
+
 
 }

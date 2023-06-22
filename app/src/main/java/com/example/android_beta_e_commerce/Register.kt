@@ -18,6 +18,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Handler
 import android.text.TextUtils.isEmpty
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.widget.ImageView
 
 class Register : AppCompatActivity() {
 
@@ -39,6 +42,52 @@ class Register : AppCompatActivity() {
         val emailWarning: TextView = findViewById(R.id.emailWarning)
         val usernameWarning: TextView = findViewById(R.id.usernameWarning)
         val registerTextview: TextView = findViewById(R.id.registerTextview)
+
+        val showPassword: ImageView = findViewById(R.id.showPasswordIcon)
+        val showConfirmationPassword: ImageView= findViewById(R.id.showPasswordIcon)
+
+
+
+        password.transformationMethod = PasswordTransformationMethod.getInstance()
+        showPassword.setImageResource(R.drawable.hide_password)
+
+        showPassword.setOnClickListener {
+            val isVisible = password.transformationMethod is PasswordTransformationMethod
+
+            if (isVisible) {
+                // Show password
+                password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                showPassword.setImageResource(R.drawable.show_password_icon)
+            } else {
+                // Hide password
+                password.transformationMethod = PasswordTransformationMethod.getInstance()
+                showPassword.setImageResource(R.drawable.hide_password)
+            }
+
+            // Move cursor to the end of the text
+            password.setSelection(password.text.length)
+        }
+
+        confirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+        showConfirmationPassword.setImageResource(R.drawable.hide_password)
+
+        showConfirmationPassword.setOnClickListener {
+            val isVisible = confirmPassword.transformationMethod is PasswordTransformationMethod
+
+            if (isVisible) {
+                // Show password
+                confirmPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                showConfirmationPassword.setImageResource(R.drawable.show_password_icon)
+            } else {
+                // Hide password
+                confirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                showConfirmationPassword.setImageResource(R.drawable.hide_password)
+            }
+
+            // Move cursor to the end of the text
+            confirmPassword.setSelection(confirmPassword.text.length)
+        }
+
 
         registerTextview.setOnClickListener {
             val intent = Intent(this, Login::class.java)
