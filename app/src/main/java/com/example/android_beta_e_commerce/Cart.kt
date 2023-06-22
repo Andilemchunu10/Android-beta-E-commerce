@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
-class Cart : AppCompatActivity() {
+class Cart : AppCompatActivity(){
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartAdapter: CartAdapter
     private lateinit var placeOrderButton: Button
@@ -66,7 +66,7 @@ class Cart : AppCompatActivity() {
         // Calculate the total order price
         val totalPrice = calculateTotalPrice(cartItems)
         // Update the total order price TextView
-        orderTotalTextView.text = "Total: $" + String.format("%.2f", totalPrice)
+        orderTotalTextView.text = "Total: R" + String.format("%.2f", totalPrice)
         // ...
 
 

@@ -11,5 +11,7 @@
     <color name="colour">#868889</color>
     <color name="text">#868889</color>
     <color name="cartNumber">#E91E63</color>
+    <color name="red">#FF0000</color>
+
 
 </resources>

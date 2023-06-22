@@ -122,8 +122,10 @@ class Home : AppCompatActivity() {
             }
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
+                rvHome.visibility = View.GONE
             } else {
                 myAdapter.setFilteredList(filteredList)
+                rvHome.visibility = View.VISIBLE
             }
         }
     }

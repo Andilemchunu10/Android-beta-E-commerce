@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class ViewOneActivity2 : AppCompatActivity() {
 
+
     private lateinit var productNameTextView: TextView
     private lateinit var productPriceTextView: TextView
     private lateinit var productDescriptionView: TextView
@@ -23,6 +24,7 @@ class ViewOneActivity2 : AppCompatActivity() {
     private lateinit var profileIcon: ImageView
     private lateinit var homeIcon: ImageView
     private var count = 1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,9 @@ class ViewOneActivity2 : AppCompatActivity() {
         val category: TextView = findViewById(R.id.textView)
         val description: TextView = findViewById(R.id.textView5)
         val title: TextView = findViewById(R.id.title)
+
+        //val productDescription = intent.getStringExtra("productDescription")
+
 
         val bundle: Bundle? = intent.extras
         val productDescription = bundle?.getString("productDescription")
@@ -83,6 +88,15 @@ class ViewOneActivity2 : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+//        homeImage.setOnClickListener {
+//            val intent = Intent(this, Home::class.java)
+//            startActivity(intent)
+//        }
+
+        var count = 1
+
+
         incrementBtn.setOnClickListener {
             count++
             itemNum.text = count.toString()
@@ -90,7 +104,9 @@ class ViewOneActivity2 : AppCompatActivity() {
         }
 
         decrementBtn.setOnClickListener {
+
             if (count > 1) {
+
                 count--
                 itemNum.text = count.toString()
                 updatePrice(bundle, price)
@@ -109,7 +125,9 @@ class ViewOneActivity2 : AppCompatActivity() {
             }
         }
 
+
         addToCartbutton.setOnClickListener {
+
             val product = ProductsItem(
                 name = productTitle ?: "",
                 description = "",
@@ -132,6 +150,7 @@ class ViewOneActivity2 : AppCompatActivity() {
         cartIcon.setOnClickListener {
             val intent = Intent(this, Cart::class.java)
             startActivity(intent)
+
         }
     }
 
