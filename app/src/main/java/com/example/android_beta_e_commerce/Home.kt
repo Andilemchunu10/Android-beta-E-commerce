@@ -23,10 +23,7 @@ class Home : AppCompatActivity() {
     var BASE_URL = "http://10.100.0.97:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
-
     private lateinit var cartCount: TextView
-
-
     private lateinit var cartIcon:ImageView
     private lateinit var profileIcon: ImageView
 
@@ -101,6 +98,7 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
+
 
     }
 
