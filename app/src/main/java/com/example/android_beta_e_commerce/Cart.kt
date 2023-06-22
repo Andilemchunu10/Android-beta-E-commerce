@@ -63,7 +63,7 @@ class Cart : AppCompatActivity(){
         }
 
         // Set the CartAdapter and RecyclerView
-        cartAdapter = CartAdapter(this, cartItems)
+        cartAdapter = CartAdapter(this, orderTotalTextView,cartItems)
         recyclerView.adapter = cartAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         // Calculate the total order price
@@ -156,11 +156,12 @@ class Cart : AppCompatActivity(){
         var totalPrice = 0.0
         for (item in cartItems) {
             val quantity = CartManager.getItemQuantity(item)
-            val price = item.price
-            totalPrice += price * quantity
+            val price = item.price * quantity // Multiply the item price by the quantity
+            totalPrice += price
         }
         return totalPrice
     }
+
 }
 
 

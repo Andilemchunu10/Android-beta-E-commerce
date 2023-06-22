@@ -2,6 +2,7 @@ package com.example.android_beta_e_commerce
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CartAdapter(private val con: Context, var list: List<ProductsItem>) :RecyclerView.Adapter<CartAdapter.ViewHolder>(){
+class CartAdapter(private val con: Context, private val orderTotalTextView: TextView, var list: List<ProductsItem>) :RecyclerView.Adapter<CartAdapter.ViewHolder>(){
 
 
     inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
@@ -32,24 +33,24 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
                 // Handle increment button click
                 count++
                 counts.text = count.toString()
-//                val priceValue = price.text.toString().toDouble()
-//                val amount: Double = count.toDouble() * priceValue
-//                val priceFormatted = String.format("%.2f", amount)
-//                totalCost.text = priceFormatted
-                // Add your desired logic here
+                count++
+                counts.text = count.toString()
+                val updatedPrice = list[adapterPosition].price * count
+                val priceFormatted = String.format("%.2f", updatedPrice)
+                price.text = priceFormatted
+
             }
 
             decrement.setOnClickListener {
                 // Handle decrement button click
-                if (count<1) {
-                    count=1
+                if (count > 1) {
+                    count--
+                    counts.text = count.toString()
+                    val initialPrice = list[adapterPosition].price
+                    val updatedPrice = initialPrice * count
+                    val priceFormatted = String.format("%.2f", updatedPrice)
+                    price.text = priceFormatted
                 }
-                count--
-                counts.text = count.toString()
-//                val priceValue = price.text.toString().toDouble()
-//                val amount: Double = count.toDouble() * priceValue
-//                val priceFormatted = String.format("%.2f", amount)
-//                totalCost.text = priceFormatted
 
 
 
@@ -72,8 +73,7 @@ class CartAdapter(private val con: Context, var list: List<ProductsItem>) :Recyc
         val product = list[position] // Get the ProductsItem at the current position
         Glide.with(con).load(product.image.imageURL).into(holder.img)
         holder.name.text = list[position].name
-        holder.price.text = "" + String.format("%.2f", product.price)
-
+        holder.price.text = list[position].price.toString()
 
         val incrementButton = holder.increment
         val decrementButton = holder.decrement
