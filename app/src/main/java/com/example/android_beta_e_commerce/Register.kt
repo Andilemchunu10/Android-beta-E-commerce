@@ -133,50 +133,50 @@ class Register : AppCompatActivity() {
                 (isEmpty(enteredPassword)) &&  (isEmpty(enteredEmail))) {
 
                 passwordWarning.text =
-                    "Please enter Password"
+                    "* Please enter Password"
                 password.backgroundTintList = redColorStateList
 
-                confirmWarning.text = "Please enter confirmation password"
+                confirmWarning.text = "* Please enter confirmation password"
                 confirmPassword.backgroundTintList = redColorStateList
 
-                emailWarning.text = "Please enter Email"
+                emailWarning.text = "* Please enter Email"
                 userEmail.backgroundTintList = redColorStateList
 
                 return@setOnClickListener
             } else if ((isEmpty(enteredPassword)) &&  (isEmpty(enteredEmail))) {
 
-                confirmWarning.text = "Please enter confirmation password"
+                confirmWarning.text = "* Please enter confirmation password"
                 confirmPassword.backgroundTintList = redColorStateList
 
-                emailWarning.text = "Please enter Email"
+                emailWarning.text = "* Please enter Email"
                 userEmail.backgroundTintList = redColorStateList
 
                 return@setOnClickListener
             } else if ((isEmpty(enteredEmail))) {
 
-                emailWarning.text = "Please enter Email"
+                emailWarning.text = "* Please enter Email"
                 userEmail.backgroundTintList = redColorStateList
 
                 return@setOnClickListener
             } else if (!isUsernameFormatValid(enteredUsername)) {
                 // Username is not in email format
-                usernameWarning.text = "Invalid, Username should be the same as the email"
+                usernameWarning.text = "* Invalid, Username should be the same as the email"
                 username.backgroundTintList = redColorStateList
                 return@setOnClickListener
             } else if (!isPasswordValid(enteredPassword)) {
                 // Password is not valid
                 passwordWarning.text =
-                    "Password should contain at least 8 characters and at least one uppercase letter, lowercase letter, and digit"
+                    "* Password should contain at least 8 characters, one uppercase,one lowercase, digit"
                 password.backgroundTintList = redColorStateList
                 return@setOnClickListener
             } else if (enteredPassword != enteredConfirmationPassword) {
                 // Passwords don't match
-                confirmWarning.text = "Passwords must match"
+                confirmWarning.text = "* Passwords must match"
                 confirmPassword.backgroundTintList = redColorStateList
                 return@setOnClickListener
             } else if (!isEmailFormatValid(enteredEmail)) {
                 // Invalid email
-                emailWarning.text = "Invalid email format, please put a correct format"
+                emailWarning.text = "* Invalid email format, please put a correct format"
                 userEmail.backgroundTintList = redColorStateList
                 return@setOnClickListener
             }

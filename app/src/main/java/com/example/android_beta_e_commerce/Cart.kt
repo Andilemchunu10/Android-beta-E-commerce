@@ -63,7 +63,7 @@ class Cart : AppCompatActivity(){
         }
 
         // Set the CartAdapter and RecyclerView
-        cartAdapter = CartAdapter(this, cartItems)
+        cartAdapter = CartAdapter(this, orderTotalTextView,cartItems)
         recyclerView.adapter = cartAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         // Calculate the total order price

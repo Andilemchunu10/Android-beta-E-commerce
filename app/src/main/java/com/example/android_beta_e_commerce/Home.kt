@@ -55,7 +55,7 @@ class Home : AppCompatActivity() {
             onCategoryImageClick("Breakfast")
         }
         findViewById<ImageView>(R.id.frozenImg).setOnClickListener {
-            onCategoryImageClick("Frozens")
+            onCategoryImageClick("Frozen")
         }
         findViewById<ImageView>(R.id.imageView6).setOnClickListener {
             onCategoryImageClick("Bakery")
