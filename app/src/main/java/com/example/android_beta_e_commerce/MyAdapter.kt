@@ -37,6 +37,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         var name = v.findViewById<TextView>(R.id.productName)
         var price = v.findViewById<TextView>(R.id.productPrice)
         var add = v.findViewById<ImageView>(R.id.addIcon)
+        var cartCount = v.findViewById<TextView>(R.id.cartCount)
         init {
             v.setOnClickListener {
                 listener.onItemClickListener(adapterPosition)
@@ -45,8 +46,10 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             add.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val product = list[position]
+                    val product = filteredList[position]
                     addToCart(product)
+                    cartCount.text = count.toString()
+                    cartCount.visibility = View.VISIBLE
                 }
             }
 
@@ -54,6 +57,9 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
     private fun addToCart(product: ProductsItem) {
         cartItems.add(product)
+        count++
+        notifyDataSetChanged()
+
         // Update UI or perform any other actions related to adding the product to the cart
     }
 
@@ -90,11 +96,13 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             if (CartManager.isProductAdded(product)) {
             Toast.makeText(con, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
         }else{
+
                 val quantity = count
                 CartManager.addItem(product, quantity)
                 //cartItems.add(product)
                 Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show() // Update UI or perform any other actions related to adding the product to the cart
-
+                holder.cartCount.text = count.toString()
+                holder.cartCount.visibility = View.VISIBLE
         }
 
 

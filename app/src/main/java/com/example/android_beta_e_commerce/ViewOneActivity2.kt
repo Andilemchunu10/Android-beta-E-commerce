@@ -150,6 +150,14 @@ class ViewOneActivity2 : AppCompatActivity() {
                 CartManager.addItem(product, quantity)
                 Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show()
                 updateCartCount(CartManager.getCartItems().size)
+                val cartItems = CartManager.getCartItems()
+                updateCartCount(cartItems.size)
+
+                cartCount.visibility = if (cartItems.isNotEmpty()) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
             }
         }
 
