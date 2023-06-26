@@ -38,6 +38,7 @@ class CartAdapter(private val con: Context, private val orderTotalTextView: Text
                 val updatedPrice = list[adapterPosition].price * count
                 val priceFormatted = String.format("%.2f", updatedPrice)
                 price.text = priceFormatted
+                //orderTotalTextView.text=priceFormatted
 
             }
 
@@ -50,6 +51,7 @@ class CartAdapter(private val con: Context, private val orderTotalTextView: Text
                     val updatedPrice = initialPrice * count
                     val priceFormatted = String.format("%.2f", updatedPrice)
                     price.text = priceFormatted
+                    //orderTotalTextView.text=priceFormatted
                 }
 
 

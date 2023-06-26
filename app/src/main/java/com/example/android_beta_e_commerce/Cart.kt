@@ -63,6 +63,7 @@ class Cart : AppCompatActivity(){
             View.INVISIBLE // Hide the cartCount TextView
         }
 
+
         // Set the CartAdapter and RecyclerView
         cartAdapter = CartAdapter(this, orderTotalTextView,cartItems)
         recyclerView.adapter = cartAdapter
@@ -121,14 +122,13 @@ class Cart : AppCompatActivity(){
 
 
         private fun placeOrder() {
-
-        //Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
         // Perform the order placement logic here
         // Clear the cart or update the count based on your implementation
-      //  CartManager.clearCart()
+      CartManager.clearCart()
 
         // Update the cart count TextView
-       // updateCartCount(0)
+        updateCartCount(0)
     }
 
 

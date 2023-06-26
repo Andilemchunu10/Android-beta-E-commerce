@@ -32,9 +32,9 @@ class ViewOneActivity2 : AppCompatActivity() {
         val backbutton: ImageView = findViewById(R.id.imageView2)
         val favourites: ImageView = findViewById(R.id.imageView4)
         val addToCartbutton: Button = findViewById(R.id.button)
-        val incrementBtn: ImageButton = findViewById(R.id.imageButton3)
-        val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
-        val itemNum: TextView = findViewById(R.id.textView8)
+//        val incrementBtn: ImageButton = findViewById(R.id.imageButton3)
+//        val decrementBtn: ImageButton = findViewById(R.id.imageButton2)
+//        val itemNum: TextView = findViewById(R.id.textView8)
 
         cartIcon = findViewById(R.id.cartIcon)
         cartCount = findViewById(R.id.cartCount)
@@ -97,28 +97,28 @@ class ViewOneActivity2 : AppCompatActivity() {
         var count = 1
 
 
-        incrementBtn.setOnClickListener {
-            count++
-            itemNum.text = count.toString()
-            val initialPrice = bundle?.getDouble("productPrice")
-            val updatedPrice = initialPrice?.times(count)
-            val priceFormatted = String.format("%.2f", updatedPrice)
-            price.text = priceFormatted
-        }
-
-
-
-
-        decrementBtn.setOnClickListener {
-            if (count > 1) {
-                count--
-                itemNum.text = count.toString()
-                val initialPrice = bundle?.getDouble("productPrice")
-                val updatedPrice = initialPrice?.times(count)
-                val priceFormatted = String.format("%.2f", updatedPrice)
-                price.text = priceFormatted
-            }
-        }
+//        incrementBtn.setOnClickListener {
+//            count++
+//            itemNum.text = count.toString()
+//            val initialPrice = bundle?.getDouble("productPrice")
+//            val updatedPrice = initialPrice?.times(count)
+//            val priceFormatted = String.format("%.2f", updatedPrice)
+//            price.text = priceFormatted
+//        }
+//
+//
+//
+//
+//        decrementBtn.setOnClickListener {
+//            if (count > 1) {
+//                count--
+//                itemNum.text = count.toString()
+//                val initialPrice = bundle?.getDouble("productPrice")
+//                val updatedPrice = initialPrice?.times(count)
+//                val priceFormatted = String.format("%.2f", updatedPrice)
+//                price.text = priceFormatted
+//            }
+//        }
 
         var isFavorite = false
         favourites.setOnClickListener {
@@ -141,13 +141,14 @@ class ViewOneActivity2 : AppCompatActivity() {
                 category = Category(0, ""),
                 price = productPrice ?: 0.0,
                 image = Image(0, productImage ?: ""),
-                productId = 0
+                productId = 0,
+                quantity = 1
             )
             if (CartManager.isProductAdded(product)) {
                 Toast.makeText(this, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
             } else {
                 val quantity = count
-                CartManager.addItem(product, quantity)
+                CartManager.addItem(product)
                 Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show()
                 updateCartCount(CartManager.getCartItems().size)
                 val cartItems = CartManager.getCartItems()

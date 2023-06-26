@@ -3,7 +3,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Home : AppCompatActivity() {
     lateinit var rvHome: RecyclerView
     lateinit var myAdapter: MyAdapter
-    var BASE_URL = "http://10.0.0.12:8081/api/products/"
+    var BASE_URL = "http://10.100.0.97:8081/api/products/"
     lateinit var searchView : SearchView
     private  var list = ArrayList<ProductsItem>()
     private lateinit var cartCount: TextView
@@ -47,6 +46,7 @@ class Home : AppCompatActivity() {
         updateCartCount(CartManager.getCartCount())
 
         profileIcon = findViewById(R.id.profileIcon)
+
         cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
 
         findViewById<ImageView>(R.id.productImg).setOnClickListener {
@@ -68,7 +68,17 @@ class Home : AppCompatActivity() {
         rvHome.layoutManager = GridLayoutManager(this, 2)
 
         getAllData()
-        myAdapter = MyAdapter(this,list)
+        // Get the cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            updateCartCount(cartItems.size)
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
+        myAdapter = MyAdapter(this,list,cartCount)
         rvHome.adapter = myAdapter
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -80,24 +90,15 @@ class Home : AppCompatActivity() {
             }
         })
 
-        cartViewModel.cartCount.observe(this, { count ->
+        cartViewModel.cartCount.observe(this) { count ->
             updateCartCount(count)
-        })
+        }
 
         cartViewModel.cartCountVisibility.observe(this, { visibility ->
             updateCartCountVisibility(visibility)
         })
 
-        // Get the cart items from the CartManager
-        val cartItems = CartManager.getCartItems()
 
-        // Set cartCount visibility based on the cartItems size
-        cartCount.visibility = if (cartItems.isNotEmpty()) {
-            updateCartCount(cartItems.size)
-            View.VISIBLE // Display the cartCount TextView
-        } else {
-            View.INVISIBLE // Hide the cartCount TextView
-        }
         // Update the cart count TextView
 
         cartIcon.setOnClickListener{
@@ -119,6 +120,7 @@ class Home : AppCompatActivity() {
 
     private fun updateCartCountVisibility(visibility: Int) {
         cartCount.visibility = visibility
+
     }
     private fun onCategoryImageClick(category: String) {
         myAdapter.filterByCategory(category)
