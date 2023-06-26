@@ -11,7 +11,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MyAdapter(private val con: Context, var list: List<ProductsItem>) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
+class MyAdapter(
+    private val con: Context,
+    var list: List<ProductsItem>,
+    private val cartCount: TextView
+    ) :RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
     private lateinit var mListener: onItemClickListener
     private val cartItems: MutableList<ProductsItem> = mutableListOf()
@@ -37,6 +41,9 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
         var name = v.findViewById<TextView>(R.id.productName)
         var price = v.findViewById<TextView>(R.id.productPrice)
         var add = v.findViewById<ImageView>(R.id.addIcon)
+        var cartCount = v.findViewById<TextView>(R.id.cartCount)
+        var count = 0
+
         init {
             v.setOnClickListener {
                 listener.onItemClickListener(adapterPosition)
@@ -45,8 +52,9 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             add.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val product = list[position]
+                    val product = filteredList[position]
                     addToCart(product)
+
                 }
             }
 
@@ -54,7 +62,23 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
     }
     private fun addToCart(product: ProductsItem) {
         cartItems.add(product)
+        count++
+        notifyDataSetChanged()
+        // Get the cart items from the CartManager
+        val cartItems = CartManager.getCartItems()
+
+        // Set cartCount visibility based on the cartItems size
+        cartCount.visibility = if (cartItems.isNotEmpty()) {
+            updateCartCount(cartItems.size)
+            View.VISIBLE // Display the cartCount TextView
+        } else {
+            View.INVISIBLE // Hide the cartCount TextView
+        }
+
         // Update UI or perform any other actions related to adding the product to the cart
+    }
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
     }
 
     fun setFilteredList(list: List<ProductsItem>){
@@ -90,11 +114,11 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             if (CartManager.isProductAdded(product)) {
             Toast.makeText(con, "Product is already added to the cart", Toast.LENGTH_SHORT).show()
         }else{
-                val quantity = count
-                CartManager.addItem(product, quantity)
-                //cartItems.add(product)
-                Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show() // Update UI or perform any other actions related to adding the product to the cart
 
+                val quantity = count
+                CartManager.addItem(product)
+                addToCart(product)
+                Toast.makeText(con, "Item added to cart", Toast.LENGTH_SHORT).show() // Update UI or perform any other actions related to adding the product to the cart
         }
 
 
@@ -118,5 +142,7 @@ class MyAdapter(private val con: Context, var list: List<ProductsItem>) :Recycle
             holder.itemView.context.startActivity(intent)     }
 
     }
+
+
 
 }

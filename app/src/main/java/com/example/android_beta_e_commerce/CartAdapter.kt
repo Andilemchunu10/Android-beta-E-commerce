@@ -41,11 +41,11 @@ class CartAdapter(
                 // Handle increment button click
                 count++
                 counts.text = count.toString()
-
-                counts.text = count.toString()
                 val updatedPrice = list[adapterPosition].price * count
                 val priceFormatted = String.format("%.2f", updatedPrice)
                 price.text = priceFormatted
+                list[adapterPosition].quantity = count
+                updateTotalPrice()
 
             }
 
@@ -58,6 +58,8 @@ class CartAdapter(
                     val updatedPrice = initialPrice * count
                     val priceFormatted = String.format("%.2f", updatedPrice)
                     price.text = priceFormatted
+                    list[adapterPosition].quantity = count
+                    updateTotalPrice()
                 }
 
 
@@ -109,6 +111,20 @@ class CartAdapter(
             }
             .show()
     }
+
+    private fun updateTotalPrice() {
+        var orderTotal = 0.0
+
+        for (item in list) {
+            val quantity = item.quantity
+            val price = item.price * quantity
+            orderTotal += price
+        }
+
+        val orderTotalFormatted = String.format("%.2f", orderTotal)
+        orderTotalTextView.text = "Total: R$orderTotalFormatted" // Update the text to display the total
+    }
+
 
 
 }

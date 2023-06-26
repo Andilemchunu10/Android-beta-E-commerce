@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +28,7 @@ class Cart : AppCompatActivity(){
     private lateinit var homeIcon: ImageView
     private lateinit var checkout:Button
     private lateinit var sharedPreferences: SharedPreferences
-
+    private lateinit var cartViewModel: CartViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +46,8 @@ class Cart : AppCompatActivity(){
         cartCount = findViewById(R.id.cartCount)
         homeIcon=findViewById(R.id.homeIcon)
         checkout = findViewById(R.id.placeOrderButton)
+        cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
 
-        sharedPreferences = getSharedPreferences("CartPreferences", Context.MODE_PRIVATE)
 
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
@@ -80,6 +81,7 @@ class Cart : AppCompatActivity(){
         } else {
             View.INVISIBLE // Hide the cartCount TextView
         }
+
 
         // Set the CartAdapter and RecyclerView
         cartAdapter = CartAdapter(this, orderTotalTextView, recyclerView, ::updateOrderTotal, ::updateCartCount, cartItems)
@@ -150,33 +152,35 @@ class Cart : AppCompatActivity(){
 
 
 
-        private fun placeOrder() {
 
-        //Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
+        private fun placeOrder() {
+            Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
         // Perform the order placement logic here
         // Clear the cart or update the count based on your implementation
-      //  CartManager.clearCart()
+      CartManager.clearCart()
 
         // Update the cart count TextView
-       // updateCartCount(0)
+        updateCartCount(0)
     }
 
 
     override fun onResume() {
         super.onResume()
+        // Observe the cartCount LiveData and update the cart count TextView
+        cartViewModel.cartCount.observe(this, { count ->
+            updateCartCount(count)
+        })
 
-        // Get the latest cart items from the CartManager
-        val cartItems = CartManager.getCartItems()
+        cartViewModel.cartCountVisibility.observe(this, { visibility ->
+            updateCartCountVisibility(visibility)
+        })
+    }
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
+    }
 
-        // Update the cart count TextView
-        updateCartCount(cartItems.size)
-
-        // Set cartCount visibility based on the cartItems size
-        cartCount.visibility = if (cartItems.isNotEmpty()) {
-            View.VISIBLE // Display the cartCount TextView
-        } else {
-            View.INVISIBLE // Hide the cartCount TextView
-        }
+    private fun updateCartCountVisibility(visibility: Int) {
+        cartCount.visibility = visibility
     }
     private fun calculateTotalPrice(cartItems: List<ProductsItem>): Double {
         var totalPrice = 0.0
