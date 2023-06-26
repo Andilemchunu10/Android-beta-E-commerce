@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -96,10 +97,9 @@ class Cart : AppCompatActivity(){
 
         // Set click listener for the place order button
         placeOrderButton.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
             placeOrder()
         }
+
 
         ItemTouchHelper(object:ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
             override fun onMove(
@@ -130,6 +130,8 @@ class Cart : AppCompatActivity(){
 
         }).attachToRecyclerView(recyclerView)
 
+
+
         backbuttons.setOnClickListener {
 
             val intent = Intent(this, Home::class.java)
@@ -154,13 +156,14 @@ class Cart : AppCompatActivity(){
 
 
         private fun placeOrder() {
-            Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Order placed Successfully !!", Toast.LENGTH_SHORT).show()
         // Perform the order placement logic here
         // Clear the cart or update the count based on your implementation
       CartManager.clearCart()
 
         // Update the cart count TextView
         updateCartCount(0)
+        showOrderSuccessDialog()
     }
 
 
@@ -181,6 +184,19 @@ class Cart : AppCompatActivity(){
 
     private fun updateCartCountVisibility(visibility: Int) {
         cartCount.visibility = visibility
+    }
+    private fun showOrderSuccessDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.activity_main, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setPositiveButton("OK") { dialog, _ ->
+                // Handle the OK button click if needed
+                dialog.dismiss()
+            }
+            .create()
+
+        dialog.setCancelable(false)
+        dialog.show()
     }
     private fun calculateTotalPrice(cartItems: List<ProductsItem>): Double {
         var totalPrice = 0.0
