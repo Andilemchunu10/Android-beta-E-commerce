@@ -52,6 +52,25 @@ class Cart : AppCompatActivity(){
         // Get the cart items from the CartManager
         val cartItems = CartManager.getCartItems()
 
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT // Allow swiping to the right and left
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                removeItemFromCart(viewHolder.adapterPosition)
+            }
+        })
+
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
 
         // Update the cart count TextView
         updateCartCount(CartManager.getCartItems().size)
@@ -65,7 +84,7 @@ class Cart : AppCompatActivity(){
 
 
         // Set the CartAdapter and RecyclerView
-        cartAdapter = CartAdapter(this, orderTotalTextView,cartItems)
+        cartAdapter = CartAdapter(this, orderTotalTextView, recyclerView, ::updateOrderTotal, ::updateCartCount, cartItems)
         recyclerView.adapter = cartAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         // Calculate the total order price
@@ -92,17 +111,21 @@ class Cart : AppCompatActivity(){
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-              val deletedProducts:ProductsItem = list.get(viewHolder.adapterPosition)
+              val deletedProduct:ProductsItem = list[viewHolder.adapterPosition]
 
                 val position = viewHolder.adapterPosition
                 list.removeAt(viewHolder.adapterPosition)
                 cartAdapter.notifyItemRemoved(viewHolder.adapterPosition)
 
-             Snackbar.make(recyclerView,"Successfully Deleted" + deletedProducts.name,Snackbar.LENGTH_SHORT).setAction(
-                 "Undo", View.OnClickListener {
-                     list.add(position,deletedProducts)
-                     cartAdapter.notifyItemInserted(position)
-                 }).show()
+                Snackbar.make(recyclerView, "Item removed", Snackbar.LENGTH_SHORT)
+                    .setAction("Undo") {
+                        CartManager.addItem(deletedProduct, 1)
+                        cartAdapter.notifyItemInserted(position)
+                        updateOrderTotal()
+                        updateCartCount(CartManager.getCartItems().size)
+                    }
+                    .show()
+
             }
 
         }).attachToRecyclerView(recyclerView)
@@ -119,6 +142,15 @@ class Cart : AppCompatActivity(){
         }
 
     }
+
+    private fun removeItemFromCart(position: Int) {
+        cartAdapter.removeItem(position)
+    }
+    private fun updateCartCount(count: Int) {
+        cartCount.text = count.toString()
+    }
+
+
 
 
         private fun placeOrder() {
@@ -159,10 +191,12 @@ class Cart : AppCompatActivity(){
         }
         return totalPrice
     }
+    private fun updateOrderTotal() {
+        val totalPrice = calculateTotalPrice(CartManager.getCartItems())
+        orderTotalTextView.text = "Total: R" + String.format("%.2f", totalPrice)
+    }
+
 }
-
-
-
 
 
 

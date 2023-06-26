@@ -11,8 +11,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 
-class CartAdapter(private val con: Context, private val orderTotalTextView: TextView, var list: List<ProductsItem>) :RecyclerView.Adapter<CartAdapter.ViewHolder>(){
+class CartAdapter(
+    private val con: Context,
+    private val orderTotalTextView: TextView,
+    private val recyclerView: RecyclerView,
+    private val updateOrderTotal: () -> Unit,
+    private val updateCartCount: (Int) -> Unit,
+    var list: List<ProductsItem>
+    ) :RecyclerView.Adapter<CartAdapter.ViewHolder>(){
 
 
     inner class ViewHolder(v: View):RecyclerView.ViewHolder(v){
@@ -22,7 +30,7 @@ class CartAdapter(private val con: Context, private val orderTotalTextView: Text
         var increment = v.findViewById<ImageButton>(R.id.increment)
         var decrement = v.findViewById<ImageButton>(R.id.decrement)
         var counts =  v.findViewById<TextView>(R.id.counts)
-
+        val rootView = v
 
         var count = 1
 
@@ -81,8 +89,28 @@ class CartAdapter(private val con: Context, private val orderTotalTextView: Text
         val counts = holder.counts
         val price = holder.price
 
+        holder.rootView.setOnLongClickListener {
+            removeItem(holder.adapterPosition)
+            true
+        }
     }
 
+    fun removeItem(position: Int) {
+        val deletedItem = list[position]
+        CartManager.removeItem(deletedItem)
+        notifyItemRemoved(position)
+        updateOrderTotal()
+        updateCartCount(CartManager.getCartItems().size)
+
+        Snackbar.make(recyclerView, "Item removed", Snackbar.LENGTH_SHORT)
+            .setAction("Undo") {
+                CartManager.addItem(deletedItem, 1)
+                notifyItemInserted(position)
+                updateOrderTotal()
+                updateCartCount(CartManager.getCartItems().size)
+            }
+            .show()
+    }
 
     private fun updateTotalPrice() {
         var orderTotal = 0.0
