@@ -8,6 +8,7 @@ data class ProductsItem(
     val image: Image,
     val name: String,
     val price: Double,
-    val productId: Int
+    val productId: Int,
+    var quantity: Int = 1
 )
 

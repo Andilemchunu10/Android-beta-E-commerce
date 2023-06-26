@@ -39,13 +39,28 @@ class CartAdapter(
             // Set click listeners for increment and decrement buttons
             increment.setOnClickListener {
                 // Handle increment button click
+                val position = adapterPosition
+                val item = list[adapterPosition]
+                val quantity = CartManager.getItemQuantity(item)
+                val newQuantity = quantity + 1
+                updateCartItemQuantity(position, newQuantity)
+
                 count++
                 counts.text = count.toString()
-
-                counts.text = count.toString()
+                list[adapterPosition].quantity = count
                 val updatedPrice = list[adapterPosition].price * count
                 val priceFormatted = String.format("%.2f", updatedPrice)
+
+                CartManager.setItemQuantity(item, count)
+
+
                 price.text = priceFormatted
+
+
+                // Update the cart count TextView
+                updateCartCount(CartManager.getCartCount())
+
+                (con as Cart).updateOrderTotal()
 
             }
 
@@ -54,15 +69,24 @@ class CartAdapter(
                 if (count > 1) {
                     count--
                     counts.text = count.toString()
+                    list[adapterPosition].quantity = count
                     val initialPrice = list[adapterPosition].price
                     val updatedPrice = initialPrice * count
                     val priceFormatted = String.format("%.2f", updatedPrice)
                     price.text = priceFormatted
+
+                    val item = list[adapterPosition]
+                    CartManager.setItemQuantity(item, count)
+
+                    // Update the cart count TextView
+                    //updateCartCount(CartManager.getCartCount())
+                    updateOrderTotal()
                 }
 
 
                 // Add your desired logic here
             }
+
         }
     }
 
@@ -71,27 +95,60 @@ class CartAdapter(
         return ViewHolder(view)
     }
 
+    fun updateCartItemQuantity(position: Int, quantity: Int) {
+        val item = list[position]
+        CartManager.setItemQuantity(item, quantity)
+        notifyItemChanged(position)
+        updateOrderTotal()
+        updateCartCount(CartManager.getCartCount())
+    }
 
     override fun getItemCount(): Int {
-        return list.count()
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = list[position] // Get the ProductsItem at the current position
-        Glide.with(con).load(product.image.imageURL).into(holder.img)
-        holder.name.text = list[position].name
-        holder.price.text = list[position].price.toString()
 
         val incrementButton = holder.increment
         val decrementButton = holder.decrement
         val counts = holder.counts
         val price = holder.price
+        val product = list[position]
+
+        holder.count = CartManager.getItemQuantity(product)
+        counts.text = holder.count.toString()
+        val initialPrice = list[position].price
+        val totalPrice = initialPrice * holder.count
+        val priceFormatted = String.format("%.2f", totalPrice)
+        price.text = priceFormatted
+
+        // Get the ProductsItem at the current position
+        Glide.with(con).load(product.image.imageURL).into(holder.img)
+        holder.name.text = list[position].name
+        holder.price.text = list[position].price.toString()
+        val item = list[position]
+        val quantity = CartManager.getItemQuantity(item)
+
+        holder.name.text = item.name
+        holder.price.text = item.price.toString()
+        holder.counts.text = quantity.toString()
+
+
 
         holder.rootView.setOnLongClickListener {
             removeItem(holder.adapterPosition)
             true
         }
     }
+
+    fun addItem(position: Int) {
+        val product = list[position]
+        CartManager.addItem(product, 1)
+        notifyItemChanged(position)
+        updateOrderTotal()
+        updateCartCount(CartManager.getCartCount())
+    }
+
 
     fun removeItem(position: Int) {
         val deletedItem = list[position]
@@ -101,11 +158,11 @@ class CartAdapter(
         updateCartCount(CartManager.getCartItems().size)
 
         Snackbar.make(recyclerView, "Item removed", Snackbar.LENGTH_SHORT)
-            .setAction("Undo") {
+            .setAction("") {
                 CartManager.addItem(deletedItem, 1)
                 notifyItemInserted(position)
                 updateOrderTotal()
-                updateCartCount(CartManager.getCartItems().size)
+                updateCartCount(CartManager.getCartCount())
             }
             .show()
     }

@@ -2,6 +2,7 @@ package com.example.android_beta_e_commerce
 
 object CartManager {
     private val cartItems: MutableList<ProductsItem> = mutableListOf()
+    private val itemQuantities: MutableMap<ProductsItem, Int> = mutableMapOf()
 
     private var cartCount: Int = 0
 
@@ -15,7 +16,14 @@ object CartManager {
         if (!cartItems.contains(item)) {
             cartItems.add(item)
         }
+        cartCount += quantity
+
+        // Set the initial quantity of the item to 1 if it's newly added
+        if (quantity == 0) {
+            item.quantity = 1
+        }
     }
+
 
     fun removeItem(item: ProductsItem) {
         cartItems.remove(item)
@@ -36,6 +44,10 @@ object CartManager {
     fun getItemQuantity(item: ProductsItem): Int {
         // Implement the logic to get the quantity of the item in the cart
         // For now, assuming the quantity is always 1
-        return 1
+        return itemQuantities[item] ?: 0
+    }
+
+    fun setItemQuantity(item: ProductsItem, quantity: Int) {
+        itemQuantities[item] = quantity
     }
 }

@@ -181,13 +181,13 @@ class Cart : AppCompatActivity(){
     private fun calculateTotalPrice(cartItems: List<ProductsItem>): Double {
         var totalPrice = 0.0
         for (item in cartItems) {
-            val quantity = CartManager.getItemQuantity(item)
+            val quantity = item.quantity
             val price = item.price
             totalPrice += price * quantity
         }
         return totalPrice
     }
-    private fun updateOrderTotal() {
+    fun updateOrderTotal() {
         val totalPrice = calculateTotalPrice(CartManager.getCartItems())
         orderTotalTextView.text = "Total: R" + String.format("%.2f", totalPrice)
     }
