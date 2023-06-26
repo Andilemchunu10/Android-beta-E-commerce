@@ -119,7 +119,7 @@ class Cart : AppCompatActivity(){
 
                 Snackbar.make(recyclerView, "Item removed", Snackbar.LENGTH_SHORT)
                     .setAction("Undo") {
-                        CartManager.addItem(deletedProduct, 1)
+                        CartManager.addItem(deletedProduct)
                         cartAdapter.notifyItemInserted(position)
                         updateOrderTotal()
                         updateCartCount(CartManager.getCartItems().size)
@@ -146,9 +146,9 @@ class Cart : AppCompatActivity(){
     private fun removeItemFromCart(position: Int) {
         cartAdapter.removeItem(position)
     }
-    private fun updateCartCount(count: Int) {
+    /**private fun updateCartCount(count: Int) {
         cartCount.text = count.toString()
-    }
+    }**/
 
 
 
