@@ -104,7 +104,7 @@ class CartAdapter(
 
         Snackbar.make(recyclerView, "Item removed", Snackbar.LENGTH_SHORT)
             .setAction("Undo") {
-                CartManager.addItem(deletedItem, 1)
+                CartManager.addItem(deletedItem)
                 notifyItemInserted(position)
                 updateOrderTotal()
                 updateCartCount(CartManager.getCartItems().size)
